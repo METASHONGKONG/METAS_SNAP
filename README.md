@@ -1,4 +1,4 @@
-Version 1.0
+#Metas SNAP Version 1.0
 
 METAS Snap! Build Your Own Blocks
 
