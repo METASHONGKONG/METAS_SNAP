@@ -2,16 +2,50 @@
 <html>
   <head>
     <script type="text/javascript">
-    if (window.location) {
+	var language = window.navigator.userLanguage || window.navigator.language;//returns value like 'en-us' //metas
+    // alert("I am an alert box!" + language);
+	/*
+	if (window.location) {
+		alert("I am an alert box!");
       window.location = 'snap.html' + window.location.hash;
-    }
+    }*/
+	//metas
+	if (language != null){
+			
+		switch (language){
+			case 'zh-TW' :
+			case 'zh-HK' :
+			case 'zh-SG' :
+			case 'zh-tw' :
+			case 'zh-hk' :
+			case 'zh-sg' :
+				window.location = 'snap.html' + '#lang:tw';
+				break;
+						
+			case 'zh-CN' :
+			case 'zh-cn' :
+				window.location = 'snap.html' + '#lang:zh';
+				break;
+				
+			default : 
+	            if (window.location) {
+	 				
+      				window.location = 'snap.html' + window.location.hash;
+    			}
+				break;
+				
+	
+		}
+	}
+	
     </script> 
-    <meta HTTP-EQUIV="REFRESH" content="0.1; url=snap.html">
+    <meta HTTP-EQUIV="REFRESH" content="0; url=snap.html">
     <title>Redirecting to Snap!</title> 
   </head>
   <body>
-    <p>If you are not automatically redirected to Snap<i>!</i>,
+ <!--   <p>If you are no automatically redirected to Snap<i>!</i>,
       <a href="snap.html">please click here.</a> </p> 
+ -->     
   </body> 
 </html>
 

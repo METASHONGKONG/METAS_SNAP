@@ -74,7 +74,7 @@ HTMLCanvasElement, fontHeight, SymbolMorph, localize, SpeechBubbleMorph,
 ArrowMorph, MenuMorph, isString, isNil, SliderMorph, MorphicPreferences,
 ScrollFrameMorph*/
 
-modules.widgets = '2016-July-19';
+modules.widgets = '2016-May-02';
 
 var PushButtonMorph;
 var ToggleButtonMorph;
@@ -97,11 +97,11 @@ PushButtonMorph.uber = TriggerMorph.prototype;
 
 // PushButtonMorph preferences settings:
 
-PushButtonMorph.prototype.fontSize = 10;
+PushButtonMorph.prototype.fontSize = 16;
 PushButtonMorph.prototype.fontStyle = 'sans-serif';
 PushButtonMorph.prototype.labelColor = new Color(0, 0, 0);
 PushButtonMorph.prototype.labelShadowColor = new Color(255, 255, 255);
-PushButtonMorph.prototype.labelShadowOffset = new Point(1, 1);
+PushButtonMorph.prototype.labelShadowOffset = new Point(0, 0);
 
 PushButtonMorph.prototype.color = new Color(220, 220, 220);
 PushButtonMorph.prototype.pressColor = new Color(115, 180, 240);
@@ -111,7 +111,7 @@ PushButtonMorph.prototype.outlineColor = new Color(30, 30, 30);
 PushButtonMorph.prototype.outlineGradient = false;
 PushButtonMorph.prototype.contrast = 60;
 
-PushButtonMorph.prototype.edge = 2;
+PushButtonMorph.prototype.edge = 6;
 PushButtonMorph.prototype.corner = 5;
 PushButtonMorph.prototype.outline = 1.00001;
 PushButtonMorph.prototype.padding = 3;
@@ -220,8 +220,8 @@ PushButtonMorph.prototype.drawOutline = function (context) {
             0,
             this.height()
         );
-        outlineStyle.addColorStop(0, this.outlineColor.darker().toString());
         outlineStyle.addColorStop(1, 'white');
+        outlineStyle.addColorStop(0, this.outlineColor.darker().toString());
     } else {
         outlineStyle = this.outlineColor.toString();
     }
@@ -290,8 +290,8 @@ PushButtonMorph.prototype.drawEdges = function (
         this.corner,
         Math.max(this.corner - this.outline, 0)
     );
-    gradient.addColorStop(0, color.toString());
     gradient.addColorStop(1, topColor.toString());
+    gradient.addColorStop(0, color.toString());
 
     context.strokeStyle = gradient;
     context.lineCap = 'round';
@@ -352,8 +352,8 @@ PushButtonMorph.prototype.drawEdges = function (
         h - this.corner,
         Math.max(this.corner - this.outline, 0)
     );
-    gradient.addColorStop(0, color.toString());
     gradient.addColorStop(1, bottomColor.toString());
+    gradient.addColorStop(0, color.toString());
 
     context.strokeStyle = gradient;
     context.lineCap = 'round';
@@ -1447,8 +1447,8 @@ DialogBoxMorph.uber = Morph.prototype;
 
 // DialogBoxMorph preferences settings:
 
-DialogBoxMorph.prototype.fontSize = 12;
-DialogBoxMorph.prototype.titleFontSize = 14;
+DialogBoxMorph.prototype.fontSize = 16;
+DialogBoxMorph.prototype.titleFontSize = 16;
 DialogBoxMorph.prototype.fontStyle = 'sans-serif';
 
 DialogBoxMorph.prototype.color = PushButtonMorph.prototype.color;
@@ -1715,7 +1715,7 @@ DialogBoxMorph.prototype.promptCode = function (
 
     text.fontName = 'monospace';
     text.fontStyle = 'monospace';
-    text.fontSize = 11;
+    text.fontSize = 16;
     text.setPosition(frame.topLeft().add(frame.padding));
     text.enableSelecting();
     text.isEditable = true;
@@ -1904,7 +1904,7 @@ DialogBoxMorph.prototype.promptCredentials = function (
     function labelText(string) {
         return new TextMorph(
             localize(string),
-            10,
+            16,
             null, // style
             false, // bold
             null, // italic
@@ -1924,7 +1924,7 @@ DialogBoxMorph.prototype.promptCredentials = function (
             },
             '  ' + localize(label) + '  '
         );
-        btn.fontSize = 10;
+        btn.fontSize = 16;
         btn.corner = myself.buttonCorner;
         btn.edge = myself.buttonEdge;
         btn.outline = myself.buttonOutline;
@@ -2766,11 +2766,11 @@ DialogBoxMorph.prototype.drawNew = function () {
         this.corner,
         0
     );
+    gradient.addColorStop(1, this.color.toString());
     gradient.addColorStop(
         0,
         this.color.lighter(this.contrast).toString()
     );
-    gradient.addColorStop(1, this.color.toString());
 
     context.lineCap = 'butt';
     context.strokeStyle = gradient;
@@ -2787,11 +2787,11 @@ DialogBoxMorph.prototype.drawNew = function () {
         this.corner,
         0
     );
+    gradient.addColorStop(1, this.color.toString());
     gradient.addColorStop(
         0,
         this.color.lighter(this.contrast).toString()
     );
-    gradient.addColorStop(1, this.color.toString());
 
     context.lineCap = 'round';
     context.strokeStyle = gradient;
@@ -2955,7 +2955,7 @@ InputFieldMorph.uber = Morph.prototype;
 // InputFieldMorph settings
 
 InputFieldMorph.prototype.edge = 2;
-InputFieldMorph.prototype.fontSize = 12;
+InputFieldMorph.prototype.fontSize = 16;
 InputFieldMorph.prototype.typeInPadding = 2;
 InputFieldMorph.prototype.contrast = 65;
 

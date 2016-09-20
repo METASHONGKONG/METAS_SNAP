@@ -145,11 +145,11 @@ radians, useBlurredShadows, SpeechBubbleMorph, modules, StageMorph,
 fontHeight, TableFrameMorph, SpriteMorph, Context, ListWatcherMorph,
 CellMorph, DialogBoxMorph, BlockInputFragmentMorph, PrototypeHatBlockMorph,
 Costume, IDE_Morph, BlockDialogMorph, BlockEditorMorph, localize, isNil,
-isSnapObject, copy, PushButtonMorph, SpriteIconMorph*/
+isSnapObject, copy*/
 
 // Global stuff ////////////////////////////////////////////////////////
 
-modules.blocks = '2016-July-15';
+modules.blocks = '2016-May-04';
 
 var SyntaxElementMorph;
 var BlockMorph;
@@ -312,7 +312,7 @@ SyntaxElementMorph.prototype.setScale = function (num) {
     this.labelPadding = 4 * scale;
     this.labelFontName = 'Verdana';
     this.labelFontStyle = 'sans-serif';
-    this.fontSize = 10 * scale;
+    this.fontSize = 16 * scale;
     this.embossing = new Point(
         -1 * Math.max(scale / 2, 1),
         -1 * Math.max(scale / 2, 1)
@@ -857,8 +857,7 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             part.isUnevaluated = true;
             break;
         case '%txt':
-            part = new InputSlotMorph(); // supports whitespace dots
-            // part = new TextSlotMorph(); // multi-line, no whitespace dots
+            part = new InputSlotMorph();
             part.minWidth = part.height() * 1.7; // "landscape"
             part.fixLayout();
             break;
@@ -943,6 +942,127 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             );
             part.isStatic = true;
             break;
+			//metas hkweatherLocation
+		case '%hkweatherLocation':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    'Hong Kong Observatory' : ['Hong Kong Observatory'],
+                    'King\'s Park' : ['King\'s Park'],
+                    'Wong Chuk Hang' : ['Wong Chuk Hang'],
+                    'Ta Kwu Ling' : ['Ta Kwu Ling'],
+					'Lau Fau Shan' : ['Lau Fau Shan'],
+					'Tai Po' : ['Tai Po'],
+					'Sha Tin' : ['Sha Tin'],
+					'Tuen Mun' : ['Tuen Mun'],
+					'Tseung Kwan O' : ['Tseung Kwan O'],
+					'Sai Kung' : ['Sai Kung'],
+					'Cheung Chau' : ['Cheung Chau'],
+					'Chek Lap Kok' : ['Chek Lap Kok'],
+					'Tsing Yi' : ['Tsing Yi'],
+					'Shek Kon' : ['Shek Kon'],
+					'Tsuen Wan Ho Koon' : ['Tsuen Wan Ho Koon'],
+					'Tsuen Wan Shing Mun Valley' : ['Tsuen Wan Shing Mun Valley'],
+					'Hong Kong Park' : ['Hong Kong Park'],
+					'Shau Kei Wan' : ['Shau Kei Wan'],
+					'Kowloon City' : ['Kowloon City'],
+					'Happy Valley' : ['Happy Valley'],
+					'Wong Tai Sin' : ['Wong Tai Sin'],
+					'Stanley' : ['Stanley'],
+					'Kwun Tong' : ['Kwun Tong'],
+					'Sham Shui Po' : ['Sham Shui Po'],
+					'Kai Tak Runway Park' : ['Kai Tak Runway Park'],
+					'Yuen Long Park' : ['Yuen Long Park']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;	
+				//metas hkweatherUnit
+		case '%metasUnit':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    'with unit' : ['with unit'],
+					'without unit' : ['without unit']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;	
+						//metas pwmstep
+		case '%pwmpin':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '1' : ['1'],
+					'2' : ['2'],
+					'3' : ['3'],
+					'4' : ['4'],
+					'5' : ['5'],
+					'6' : ['6'],
+					'7' : ['7'],
+					'8' : ['8'],
+					'9' : ['9'],
+					'10' : ['10'],
+					'11' : ['11'],
+					'12' : ['12']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;	
+		case '%hkroad':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+				  'Island Eastern Corridor westbound near Lei King Wan via Cross Harbour Tunnel' : ['Island Eastern Corridor westbound near Lei King Wan via Cross Harbour Tunnel'],
+				  'Island Eastern Corridor westbound near Lei King Wan via Eastern Harbour Crossing' : ['Island Eastern Corridor westbound near Lei King Wan via Eastern Harbour Crossing'],
+				  'Gloucester Road eastbound near the Revenue Tower via Cross Harbour Tunnel' : ['Gloucester Road eastbound near the Revenue Tower via Cross Harbour Tunnel'],
+				  'Gloucester Road eastbound near the Revenue Tower via Eastern Harbour Crossing' : ['Gloucester Road eastbound near the Revenue Tower via Eastern Harbour Crossing'],
+				  'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Cross Harbour Tunnel' : ['Canal Road Flyover northbound near exit of Aberdeen Tunnel via Cross Harbour Tunnel'],
+				  'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Eastern Harbour Crossing' : ['Canal Road Flyover northbound near exit of Aberdeen Tunnel via Eastern Harbour Crossing'],
+				  'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Western Harbour Crossing' : ['Canal Road Flyover northbound near exit of Aberdeen Tunnel via Western Harbour Crossing'],
+				  'Island Eastern Corridor westbound near City Garden via Cross Harbour Tunnel' : ['Island Eastern Corridor westbound near City Garden via Cross Harbour Tunnel'],
+				  'Island Eastern Corridor westbound near City Garden via Western Harbour Crossing' : ['Island Eastern Corridor westbound near City Garden via Western Harbour Crossing'],
+				  'Ferry Street southbound near Charming Garden via Cross Harbour Tunnel' : ['Ferry Street southbound near Charming Garden via Cross Harbour Tunnel'],
+				  'Ferry Street southbound near Charming Garden via Western Harbour Crossing' : ['Ferry Street southbound near Charming Garden via Western Harbour Crossing'],
+				  'Gascoigne Road eastbound near the Hong Kong Polytechnic University via Cross Harbour Tunnel' : ['Gascoigne Road eastbound near the Hong Kong Polytechnic University via Cross Harbour Tunnel'],
+				  'Gascoigne Road eastbound near the Hong Kong Polytechnic University via Eastern Harbour Crossing' : ['Gascoigne Road eastbound near the Hong Kong Polytechnic University via Eastern Harbour Crossing'],
+				  'Waterloo Road southbound near Kowloon Hospital via Cross Harbour Tunnel' : ['Waterloo Road southbound near Kowloon Hospital via Cross Harbour Tunnel'],
+				  'Waterloo Road southbound near Kowloon Hospital via Eastern Harbour Crossing' : ['Waterloo Road southbound near Kowloon Hospital via Eastern Harbour Crossing'],
+				  'Waterloo Road southbound near Kowloon Hospital via Western Harbour Crossing' : ['Waterloo Road southbound near Kowloon Hospital via Western Harbour Crossing'],
+				  'Princess Margaret Road southbound near Oi Man Estate via Cross Harbour Tunnel' : ['Princess Margaret Road southbound near Oi Man Estate via Cross Harbour Tunnel'],
+				  'Princess Margaret Road southbound near Oi Man Estate via Western Harbour Crossing' : ['Princess Margaret Road southbound near Oi Man Estate via Western Harbour Crossing'],
+				  'Kai Fuk Road northbound near the petrol stations via Cross Harbour Tunnel' : ['Kai Fuk Road northbound near the petrol stations via Cross Harbour Tunnel'],
+				  'Kai Fuk Road northbound near the petrol stations via Eastern Harbour Crossing' : ['Kai Fuk Road northbound near the petrol stations via Eastern Harbour Crossing'],
+				  'Chatham Road North southbound near Fat Kwong Street Playground via Cross Harbour Tunnel' : ['Chatham Road North southbound near Fat Kwong Street Playground via Cross Harbour Tunnel'],
+				  'Chatham Road North southbound near Fat Kwong Street Playground via Western Harbour Crossing' : ['Chatham Road North southbound near Fat Kwong Street Playground via Western Harbour Crossing'],
+				  'Tai Po Road – Sha Tin near the Racecourse via Lion Rock Tunnel' : ['Tai Po Road – Sha Tin near the Racecourse via Lion Rock Tunnel'],
+				  'Tai Po Road – Sha Tin near the Racecourse via hing Mun Tunnel' : ['Tai Po Road – Sha Tin near the Racecourse via hing Mun Tunnel'],
+				  'Tai Po Road – Sha Tin near the Racecourse via Tsing Sha Control Area' : ['Tai Po Road – Sha Tin near the Racecourse via Tsing Sha Control Area'],
+				  'Tate\'s Cairn Highway near Shek Mun via Lion Rock Tunnel' : ['Tate\'s Cairn Highway near Shek Mun via Lion Rock Tunnel'],
+				  'Tate\'s Cairn Highway near Shek Mun via Tate\'s Cairn Tunnel' : ['Tate\'s Cairn Highway near Shek Mun via Tate\'s Cairn Tunnel'],
+				  'Tate\'s Cairn Highway near Shek Mun via Tsing Sha Control Area' : ['Tate\'s Cairn Highway near Shek Mun via Tsing Sha Control Area'],
+				  'Tolo Highway near Science Park via Lion Rock Tunnel' : ['Tolo Highway near Science Park via Lion Rock Tunnel'],
+				  'Tolo Highway near Science Park via Tate\'s Cairn Tunnel' : ['Tolo Highway near Science Park via Tate\'s Cairn Tunnel'],
+				  'Tolo Highway near Science Park via Tsing Sha Control Area' : ['Tolo Highway near Science Park via Tsing Sha Control Area'],
+				  'San Tin Highway near Pok Wai Road via Tai Lam Tunnel to Ting Kau' : ['San Tin Highway near Pok Wai Road via Tai Lam Tunnel to Ting Kau'],
+				  'San Tin Highway near Pok Wai Road via Tuen Mun Road to Ting Kau' : ['San Tin Highway near Pok Wai Road via Tuen Mun Road to Ting Kau'],
+				  'Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Castle Peak to Tsuen Wan' : ['Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Castle Peak to Tsuen Wan'],
+				  'Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Tuen Mun to Tsuen Wan' : ['Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Tuen Mun to Tsuen Wan']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;	
         case '%dates':
             part = new InputSlotMorph(
                 null, // text
@@ -1053,18 +1173,12 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             part = new InputSlotMorph(
                 null,
                 false,
-                {   color: ['color'],
-                    fisheye: ['fisheye'],
-                    whirl: ['whirl'],
-                    pixelate: ['pixelate'],
-                    mosaic: ['mosaic'],
-                    duplicate: ['duplicate'],
+                {   brightness : ['brightness'],
+                    ghost : ['ghost'],
                     negative : ['negative'],
                     comic: ['comic'],
-                    confetti: ['confetti'],
-                    saturation: ['saturation'],
-                    brightness : ['brightness'],
-                    ghost: ['ghost']
+                    duplicate: ['duplicate'],
+                    confetti: ['confetti']
                 },
                 true
             );
@@ -1282,15 +1396,8 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             part = new ArgMorph('list');
             break;
         case '%b':
-            part = new BooleanSlotMorph();
-            break;
         case '%boolUE':
-            part = new BooleanSlotMorph();
-            part.isUnevaluated = true;
-            break;
-        case '%bool':
-            part = new BooleanSlotMorph(true);
-            part.isStatic = true;
+            part = new BooleanSlotMorph(null, true);
             break;
         case '%cmd':
             part = new CommandSlotMorph();
@@ -1369,6 +1476,7 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
     // symbols:
 
         case '%turtle':
+		
             part = new SymbolMorph('turtle');
             part.size = this.fontSize * 1.2;
             part.color = new Color(255, 255, 255);
@@ -1783,10 +1891,6 @@ SyntaxElementMorph.prototype.showBubble = function (value, exportPic) {
         img,
         morphToShow,
         isClickable = false,
-        ide = this.parentThatIsA(IDE_Morph),
-        rcvr = this.receiver(),
-        anchor = this,
-        pos = this.rightCenter().add(new Point(2, 0)),
         sf = this.parentThatIsA(ScrollFrameMorph),
         wrrld = this.world();
 
@@ -1867,17 +1971,6 @@ SyntaxElementMorph.prototype.showBubble = function (value, exportPic) {
             this.fontSize
         );
     }
-    if (ide && (ide.currentSprite !== rcvr)) {
-        if (rcvr instanceof StageMorph) {
-            anchor = ide.corral.stageIcon;
-        } else {
-            anchor = detect(
-                ide.corral.frame.contents.children,
-                function (icon) {return icon.object === rcvr; }
-            );
-        }
-        pos = anchor.center();
-    }
     bubble = new SpeechBubbleMorph(
         morphToShow,
         null,
@@ -1886,15 +1979,13 @@ SyntaxElementMorph.prototype.showBubble = function (value, exportPic) {
     );
     bubble.popUp(
         wrrld,
-        pos,
+        this.rightCenter().add(new Point(2, 0)),
         isClickable
     );
     if (exportPic) {
         this.exportPictureWithResult(bubble);
     }
-    if (anchor instanceof SpriteIconMorph) {
-        bubble.keepWithin(ide.corral);
-    } else if (sf) {
+    if (sf) {
         bubble.keepWithin(sf);
     }
 };
@@ -1990,14 +2081,14 @@ SyntaxElementMorph.prototype.endLayout = function () {
 
     arity: single
 
-    %br     - user-forced line break
-    %s      - white rectangular type-in slot ("string-type")
+    %br        - user-forced line break
+    %s        - white rectangular type-in slot ("string-type")
     %txt    - white rectangular type-in slot ("text-type")
     %mlt    - white rectangular type-in slot ("multi-line-text-type")
-    %code   - white rectangular type-in slot, monospaced font
-    %n      - white roundish type-in slot ("numerical")
+    %code    - white rectangular type-in slot, monospaced font
+    %n        - white roundish type-in slot ("numerical")
     %dir    - white roundish type-in slot with drop-down for directions
-    %inst   - white roundish type-in slot with drop-down for instruments
+    %inst    - white roundish type-in slot with drop-down for instruments
     %ida    - white roundish type-in slot with drop-down for list indices
     %idx    - white roundish type-in slot for indices incl. "any"
     %obj    - specially drawn slot for object reporters
@@ -2015,19 +2106,18 @@ SyntaxElementMorph.prototype.endLayout = function () {
     %var    - chameleon colored rectangular drop-down for variable names
     %shd    - Chameleon colored rectuangular drop-down for shadowed var names
     %lst    - chameleon colored rectangular drop-down for list names
-    %b      - chameleon colored hexagonal slot (for predicates)
-    %bool   - chameleon colored hexagonal slot (for predicates), static
-    %l      - list icon
-    %c      - C-shaped command slot, special form for primitives
-    %cs     - C-shaped, auto-reifying, accepts reporter drops
-    %cl     - C-shaped, auto-reifying, rejects reporters
+    %b        - chameleon colored hexagonal slot (for predicates)
+    %l        - list icon
+    %c        - C-shaped command slot, special form for primitives
+    %cs       - C-shaped, auto-reifying, accepts reporter drops
+    %cl       - C-shaped, auto-reifying, rejects reporters
     %clr    - interactive color slot
-    %t      - inline variable reporter template
-    %anyUE  - white rectangular type-in slot, unevaluated if replaced
-    %boolUE - chameleon colored hexagonal slot, unevaluated if replaced
-    %f      - round function slot, unevaluated if replaced,
-    %r      - round reporter slot
-    %p      - hexagonal predicate slot
+    %t        - inline variable reporter template
+    %anyUE    - white rectangular type-in slot, unevaluated if replaced
+    %boolUE    - chameleon colored hexagonal slot, unevaluated if replaced
+    %f        - round function slot, unevaluated if replaced,
+    %r        - round reporter slot
+    %p        - hexagonal predicate slot
 
     rings:
 
@@ -2259,8 +2349,7 @@ BlockMorph.prototype.userMenu = function () {
         myself = this,
         shiftClicked = world.currentKey === 16,
         proc = this.activeProcess(),
-        vNames = proc && proc.context && proc.context.outerContext ?
-                proc.context.outerContext.variables.names() : [],
+        vNames = proc ? proc.context.outerContext.variables.names() : [],
         alternatives,
         top,
         blck;
@@ -2697,7 +2786,7 @@ BlockMorph.prototype.showHelp = function () {
     }
 
     pic.onload = function () {
-        help = newCanvas(new Point(pic.width, pic.height), true); // nonRetina
+        help = newCanvas(new Point(pic.width, pic.height));
         ctx = help.getContext('2d');
         ctx.drawImage(pic, 0, 0);
         new DialogBoxMorph().inform(
@@ -3226,10 +3315,10 @@ BlockMorph.prototype.alternateBlockColor = function () {
         this.setColor(
             this.zebraContrast < 0 ? clr.darker(Math.abs(this.zebraContrast))
                 : clr.lighter(this.zebraContrast),
-            this.hasLabels() // silently
+            true // silently
         );
     } else {
-        this.setColor(clr, this.hasLabels()); // silently
+        this.setColor(clr, true);  // silently
     }
     this.fixLabelColor();
     this.fixChildrensBlockColor(true); // has issues if not forced
@@ -3280,12 +3369,6 @@ BlockMorph.prototype.setCategory = function (aString) {
     this.startLayout();
     this.fixBlockColor();
     this.endLayout();
-};
-
-BlockMorph.prototype.hasLabels = function () {
-    return this.children.some(function (any) {
-        return any instanceof StringMorph;
-    });
 };
 
 // BlockMorph copying
@@ -3432,9 +3515,17 @@ BlockMorph.prototype.scriptPic = function () {
         pic = newCanvas(fb.extent()),
         ctx = pic.getContext('2d');
     this.allComments().forEach(function (comment) {
+        var anchor = comment.anchor;
+        if (anchor) {
+            ctx.drawImage(
+                anchor.image,
+                anchor.left() - fb.left(),
+                anchor.top() - fb.top()
+            );
+        }
         ctx.drawImage(
             comment.fullImageClassic(),
-            comment.fullBounds().left() - fb.left(),
+            comment.left() - fb.left(),
             comment.top() - fb.top()
         );
     });
@@ -3514,12 +3605,6 @@ BlockMorph.prototype.destroy = function () {
     this.allComments().forEach(function (comment) {
         comment.destroy();
     });
-
-    if (!this.parent || !this.parent.topBlock
-            && this.activeProcess()) {
-        this.activeProcess().stop();
-    }
-
     BlockMorph.uber.destroy.call(this);
 };
 
@@ -3735,9 +3820,6 @@ CommandBlockMorph.prototype.allAttachTargets = function (newParent) {
         answer = [],
         topBlocks;
 
-    if (this instanceof HatBlockMorph && newParent.rejectsHats) {
-        return answer;
-    }
     topBlocks = target.children.filter(function (child) {
         return (child !== myself) &&
             child instanceof SyntaxElementMorph &&
@@ -3775,7 +3857,7 @@ CommandBlockMorph.prototype.closestAttachTarget = function (newParent) {
             }
         );
     }
-    if (!bottomBlock.isStop()) {
+    if (!this.isStop()) {
         ref.push(
             {
                 point: bottomBlock.bottomAttachPoint(),
@@ -5106,13 +5188,7 @@ RingMorph.prototype.embed = function (aBlock, inputNames) {
         this.selector = 'reifyPredicate';
         slot = this.parts()[0];
         slot.silentReplaceInput(slot.contents(), aBlock);
-    } else if (aBlock instanceof BooleanSlotMorph) {
-        this.isStatic = false;
-        this.setSpec('%rp %ringparms');
-        this.selector = 'reifyPredicate';
-        slot = this.parts()[0];
-        slot.silentReplaceInput(slot.contents(), aBlock);
-    } else { // reporter or input slot)
+    } else { // reporter
         this.isStatic = false;
         this.setSpec('%rr %ringparms');
         this.selector = 'reifyReporter';
@@ -5211,7 +5287,6 @@ ScriptsMorph.prototype.init = function (owner) {
     this.owner = owner || null;
     this.feedbackColor = SyntaxElementMorph.prototype.feedbackColor;
     this.feedbackMorph = new BoxMorph();
-    this.rejectsHats = false;
 
     // "undrop" attributes:
     this.lastDroppedBlock = null;
@@ -5643,7 +5718,7 @@ ScriptsMorph.prototype.scriptsPicture = function () {
     pic = newCanvas(boundingBox.extent());
     ctx = pic.getContext('2d');
     this.children.forEach(function (child) {
-        var pos = child.fullBounds().origin;
+        var pos = child.position();
         if (child.isVisible) {
             ctx.drawImage(
                 child.fullImageClassic(),
@@ -5743,9 +5818,6 @@ ScriptsMorph.prototype.fixMultiArgs = function () {
 
 ScriptsMorph.prototype.wantsDropOf = function (aMorph) {
     // override the inherited method
-    if (aMorph instanceof HatBlockMorph) {
-        return !this.rejectsHats;
-    }
     return aMorph instanceof SyntaxElementMorph ||
         aMorph instanceof CommentMorph;
 };
@@ -5810,40 +5882,6 @@ ArgMorph.prototype.init = function (type, silently) {
     this.color = new Color(0, 17, 173);
     this.setExtent(new Point(50, 50), silently);
 };
-
-// ArgMorph preferences settings:
-
-ArgMorph.prototype.executeOnSliderEdit = false;
-
-// ArgMorph events:
-
-ArgMorph.prototype.reactToSliderEdit = function () {
-/*
-    directly execute the stack of blocks I'm part of if my
-    "executeOnSliderEdit" setting is turned on, obeying the stage's
-    thread safety setting. This feature allows for "Bret Victor" style
-    interactive coding.
-*/
-    var block, top, receiver, stage;
-    if (!this.executeOnSliderEdit) {return; }
-    block = this.parentThatIsA(BlockMorph);
-    if (block) {
-        top = block.topBlock();
-        receiver = top.receiver();
-        if (top instanceof PrototypeHatBlockMorph) {
-            return;
-        }
-        if (receiver) {
-            stage = receiver.parentThatIsA(StageMorph);
-            if (stage && stage.isThreadSafe) {
-                stage.threads.startProcess(top, stage.isThreadSafe);
-            } else {
-                top.mouseClickLeft();
-            }
-        }
-    }
-};
-
 
 // ArgMorph drag & drop: for demo puposes only
 
@@ -6980,6 +7018,10 @@ InputSlotMorph.prototype = new ArgMorph();
 InputSlotMorph.prototype.constructor = InputSlotMorph;
 InputSlotMorph.uber = ArgMorph.prototype;
 
+// InputSlotMorph preferences settings:
+
+InputSlotMorph.prototype.executeOnSliderEdit = false;
+
 // InputSlotMorph instance creation:
 
 function InputSlotMorph(text, isNumeric, choiceDict, isReadOnly) {
@@ -7558,6 +7600,33 @@ InputSlotMorph.prototype.reactToEdit = function () {
     this.contents().clearSelection();
 };
 
+InputSlotMorph.prototype.reactToSliderEdit = function () {
+/*
+    directly execute the stack of blocks I'm part of if my
+    "executeOnSliderEdit" setting is turned on, obeying the stage's
+    thread safety setting. This feature allows for "Bret Victor" style
+    interactive coding.
+*/
+    var block, top, receiver, stage;
+    if (!this.executeOnSliderEdit) {return; }
+    block = this.parentThatIsA(BlockMorph);
+    if (block) {
+        top = block.topBlock();
+        receiver = top.receiver();
+        if (top instanceof PrototypeHatBlockMorph) {
+            return;
+        }
+        if (receiver) {
+            stage = receiver.parentThatIsA(StageMorph);
+            if (stage && stage.isThreadSafe) {
+                stage.threads.startProcess(top, stage.isThreadSafe);
+            } else {
+                top.mouseClickLeft();
+            }
+        }
+    }
+};
+
 // InputSlotMorph menu:
 
 InputSlotMorph.prototype.userMenu = function () {
@@ -8003,16 +8072,7 @@ TemplateSlotMorph.prototype.drawRounded = ReporterBlockMorph
     %b        - Boolean
     %boolUE    - Boolean unevaluated
 
-    I can be directly edited. When the user clicks on me I toggle
-    between <true>, <false> and <null> values.
-
-    evaluate returns my value.
-
-    my most important public attributes and accessors are:
-
-    value - user editable contents (Boolean or null)
-    setContents(Boolean/null)  - display the argument (Boolean or null)
-
+    evaluate returns null
 */
 
 // BooleanSlotMorph inherits from ArgMorph:
@@ -8023,189 +8083,57 @@ BooleanSlotMorph.uber = ArgMorph.prototype;
 
 // BooleanSlotMorph instance creation:
 
-function BooleanSlotMorph(initialValue) {
-    this.init(initialValue);
+function BooleanSlotMorph() {
+    this.init();
 }
 
-BooleanSlotMorph.prototype.init = function (initialValue) {
-    this.value = (typeof initialValue === 'boolean') ? initialValue : null;
-    this.isUnevaluated = false;
+BooleanSlotMorph.prototype.init = function () {
     BooleanSlotMorph.uber.init.call(this);
 };
 
 BooleanSlotMorph.prototype.getSpec = function () {
-    return this.isUnevaluated ? '%boolUE' : '%b';
-};
-
-// BooleanSlotMorph accessing:
-
-BooleanSlotMorph.prototype.evaluate = function () {
-    return this.value;
-};
-
-BooleanSlotMorph.prototype.isEmptySlot = function () {
-    return this.value === null;
-};
-
-BooleanSlotMorph.prototype.setContents = function (boolOrNull, silently) {
-    this.value = (typeof boolOrNull === 'boolean') ? boolOrNull : null;
-    if (silently) {return; }
-    this.drawNew();
-    this.changed();
-};
-
-BooleanSlotMorph.prototype.toggleValue = function () {
-    var ide = this.parentThatIsA(IDE_Morph);
-    if (this.isStatic) {
-        this.setContents(!this.value, true);
-    } else {
-        switch (this.value) {
-        case true:
-            this.value = false;
-            break;
-        case false:
-            this.value = null;
-            break;
-        default:
-            this.value = true;
-        }
-    }
-    if (ide && !ide.isAnimating) {
-        this.drawNew();
-        this.changed();
-        return;
-    }
-    this.drawNew(3);
-    this.changed();
-    this.nextSteps ([
-        function () {
-            this.drawNew(2);
-            this.changed();
-        },
-        function () {
-            this.drawNew(1);
-            this.changed();
-        },
-        function () {
-            this.drawNew();
-            this.changed();
-        },
-    ]);
-};
-
-// BooleanSlotMorph events:
-
-BooleanSlotMorph.prototype.mouseClickLeft = function () {
-    this.toggleValue();
-    if (isNil(this.value)) {return; }
-    this.reactToSliderEdit();
-};
-
-BooleanSlotMorph.prototype.mouseEnter = function () {
-    if (this.isStatic) {return; }
-    if (this.value === false) {
-        var oldValue = this.value;
-        this.value = null;
-        this.drawNew(3);
-        this.changed();
-        this.value = oldValue;
-        return;
-    }
-    this.drawNew(1);
-    this.changed();
-};
-
-BooleanSlotMorph.prototype.mouseLeave = function () {
-    if (this.isStatic) {return; }
-    this.drawNew();
-    this.changed();
+    return '%b';
 };
 
 // BooleanSlotMorph drawing:
 
-BooleanSlotMorph.prototype.drawNew = function (progress) {
-    // "progress" is an optional number sliding the knob
-    // on a range between 0 and 4
-    var context,
-        textLabel = this.isStatic ? this.textLabel() : null,
-        h;
-
-    if (textLabel) {
-        h = textLabel.height + (this.edge * 3);
-        this.silentSetExtent(new Point(
-            textLabel.width + (h * 1.5) + (this.edge * 2),
-            h
-        ));
-    } else {
-        this.silentSetExtent(new Point(
-            (this.fontSize + this.edge * 2) * 2,
-            this.fontSize + this.edge * 2
-        ));
+BooleanSlotMorph.prototype.drawNew = function () {
+    var context;
+    this.silentSetExtent(new Point(
+        (this.fontSize + this.edge * 2) * 2,
+        this.fontSize + this.edge * 2
+    ));
+    if (this.parent) {
+        this.color = this.parent.color;
     }
-    this.color = this.parent ? this.parent.color : new Color(200, 200, 200);
     this.cachedClr = this.color.toString();
     this.cachedClrBright = this.bright();
     this.cachedClrDark = this.dark();
     this.image = newCanvas(this.extent());
     context = this.image.getContext('2d');
-    this.drawDiamond(context, progress);
-    this.drawLabel(context, textLabel);
-    this.drawKnob(context, progress);
+    this.drawDiamond(context, true);
 };
 
-BooleanSlotMorph.prototype.drawDiamond = function (context, progress) {
+BooleanSlotMorph.prototype.drawDiamond = function (context) {
     var w = this.width(),
         h = this.height(),
         r = h / 2,
-        w2 = w / 2,
         shift = this.edge / 2,
         gradient;
 
     // draw the 'flat' shape:
-    switch (this.value) {
-    case true:
-        context.fillStyle = 'rgb(0, 200, 0)';
-        break;
-    case false:
-        context.fillStyle = 'rgb(200, 0, 0)';
-        break;
-    default:
-        context.fillStyle = this.color.darker(25).toString();
-    }
+    context.fillStyle = this.color.darker(25).toString();
+    context.beginPath();
 
-    if (progress && !this.isEmptySlot()) {
-        // left half:
-        context.fillStyle = 'rgb(0, 200, 0)';
-        context.beginPath();
-        context.moveTo(0, r);
-        context.lineTo(r, 0);
-        context.lineTo(w2, 0);
-        context.lineTo(w2, h);
-        context.lineTo(r, h);
-        context.closePath();
-        context.fill();
+    context.moveTo(0, r);
+    context.lineTo(r, 0);
+    context.lineTo(w - r, 0);
+    context.lineTo(w, r);
+    context.lineTo(w - r, h);
+    context.lineTo(r, h);
 
-        // right half:
-        context.fillStyle = 'rgb(200, 0, 0)';
-        context.beginPath();
-        context.moveTo(w2, 0);
-        context.lineTo(w - r, 0);
-        context.lineTo(w, r);
-        context.lineTo(w - r, h);
-        context.lineTo(w2, h);
-        context.closePath();
-        context.fill();
-    } else {
-        context.beginPath();
-        context.moveTo(0, r);
-        context.lineTo(r, 0);
-        context.lineTo(w - r, 0);
-        context.lineTo(w, r);
-        context.lineTo(w - r, h);
-        context.lineTo(r, h);
-        context.closePath();
-        context.fill();
-    }
+    context.closePath();
+    context.fill();
 
     if (MorphicPreferences.isFlat) {return; }
 
@@ -8290,222 +8218,10 @@ BooleanSlotMorph.prototype.drawDiamond = function (context, progress) {
     context.stroke();
 };
 
-BooleanSlotMorph.prototype.drawLabel = function (context, textLabel) {
-    var w = this.width(),
-        r = this.height() / 2 - this.edge,
-        r2 = r / 2,
-        shift = this.edge / 2,
-        x,
-        y = this.height() / 2;
+// BooleanSlotMorph implicit formal parameters:
 
-    if (this.isEmptySlot()) {
-        return;
-    }
-    if (textLabel) {
-        y = (this.height() - textLabel.height) / 2;
-        if (this.value) {
-            x = this.height() / 2;
-        } else {
-            x = this.width() - (this.height() / 2) - textLabel.width;
-        }
-    if (!MorphicPreferences.isFlat) {
-        context.shadowOffsetX = -shift;
-        context.shadowOffsetY = -shift;
-        context.shadowBlur = shift;
-        context.shadowColor = this.value ? 'rgb(0, 100, 0)' : 'rgb(100, 0, 0)';
-    }
-        context.drawImage(textLabel, x, y);
-        return;
-    }
-    // "tick:"
-    x = r + (this.edge * 2) + shift;
-    if (!MorphicPreferences.isFlat) {
-        context.shadowOffsetX = -shift;
-        context.shadowOffsetY = -shift;
-        context.shadowBlur = shift;
-        context.shadowColor = 'rgb(0, 100, 0)';
-    }
-    context.strokeStyle = 'white';
-    context.lineWidth = this.edge + shift;
-    context.lineCap = 'round';
-    context.lineJoin = 'miter';
-    context.beginPath();
-    context.moveTo(x - r2, y);
-    context.lineTo(x, y + r2);
-    context.lineTo(x + r2, r2 + this.edge);
-    context.stroke();
-
-    // "cross:"
-    x = w - y - (this.edge * 2);
-    if (!MorphicPreferences.isFlat) {
-        context.shadowOffsetX = -shift;
-        context.shadowOffsetY = -shift;
-        context.shadowBlur = shift;
-        context.shadowColor = 'rgb(100, 0, 0)';
-    }
-    context.strokeStyle = 'white';
-    context.lineWidth = this.edge;
-    context.lineCap = 'butt';
-    context.beginPath();
-    context.moveTo(x - r2, y - r2);
-    context.lineTo(x + r2, y + r2);
-    context.moveTo(x - r2, y + r2);
-    context.lineTo(x + r2, y - r2);
-    context.stroke();
-};
-
-BooleanSlotMorph.prototype.drawKnob = function (context, progress) {
-    var w = this.width(),
-        r = this.height() / 2,
-        shift = this.edge / 2,
-        slideStep = (this.width() - this.height()) / 4 * (progress || 0),
-        gradient,
-        x,
-        y = r,
-        outline = PushButtonMorph.prototype.outline / 2,
-        outlineColor = PushButtonMorph.prototype.outlineColor,
-        color = PushButtonMorph.prototype.color,
-        contrast = PushButtonMorph.prototype.contrast,
-        topColor = color.lighter(contrast),
-        bottomColor = color.darker(contrast);
-
-    // draw the 'flat' shape:
-    switch (this.value) {
-    case false:
-        x = r + slideStep;
-        if (!MorphicPreferences.isFlat) {
-            context.shadowOffsetX = shift;
-            context.shadowOffsetY = 0;
-            context.shadowBlur = shift;
-            context.shadowColor = 'black';
-        }
-        break;
-    case true:
-        x = w - r - slideStep;
-        if (!MorphicPreferences.isFlat) {
-            context.shadowOffsetX = 0;
-            context.shadowOffsetY = 0;
-            context.shadowBlur = 0;
-        }
-        break;
-    default:
-        if (!progress) {return; }
-        x = r;
-        if (!MorphicPreferences.isFlat) {
-            context.shadowOffsetX = shift;
-            context.shadowOffsetY = 0;
-            context.shadowBlur = shift;
-            context.shadowColor = 'black';
-        }
-        context.globalAlpha = 0.2 * ((progress || 0) + 1);
-    }
-
-    context.fillStyle = color.toString();
-    context.beginPath();
-    context.arc(x, y, r, radians(0), radians(360));
-    context.closePath();
-    context.fill();
-
-    if (MorphicPreferences.isFlat) {return; }
-
-    // add 3D-Effect
-    // outline:
-    context.shadowOffsetX = 0;
-    context.shadowBlur = 0;
-    context.shadowColor = 'black';
-    context.lineWidth = outline;
-    context.strokeStyle = outlineColor.toString();
-    context.beginPath();
-    context.arc(x, y, r - (outline / 2), radians(0), radians(360));
-    context.stroke();
-
-    // top-left:
-    gradient = context.createRadialGradient(
-        x,
-        y,
-        r - outline - this.edge,
-        x,
-        y,
-        r - outline
-    );
-    gradient.addColorStop(1, topColor.toString());
-    gradient.addColorStop(0, color.toString());
-
-    context.strokeStyle = gradient;
-    context.lineCap = 'round';
-    context.lineWidth = this.edge;
-    context.beginPath();
-    context.arc(
-        x,
-        y,
-        r - outline - this.edge / 2,
-        radians(180),
-        radians(270),
-        false
-    );
-    context.stroke();
-
-    // bottom-right:
-    gradient = context.createRadialGradient(
-        x,
-        y,
-        r - outline - this.edge,
-        x,
-        y,
-        r - outline
-    );
-    gradient.addColorStop(1, bottomColor.toString());
-    gradient.addColorStop(0, color.toString());
-
-    context.strokeStyle = gradient;
-    context.lineCap = 'round';
-    context.lineWidth = this.edge;
-    context.beginPath();
-    context.arc(
-        x,
-        y,
-        r - outline - this.edge / 2,
-        radians(0),
-        radians(90),
-        false
-    );
-    context.stroke();
-};
-
-BooleanSlotMorph.prototype.textLabel = function () {
-    if (this.isEmptySlot()) {return null; }
-    var t, f, img, lbl, x, y;
-    t = new StringMorph(
-        localize('true'),
-        this.fontSize,
-        null,
-        true, // bold
-        null,
-        null,
-        null,
-        null,
-        new Color(255, 255, 255)
-    ).image;
-    f = new StringMorph(
-        localize('false'),
-        this.fontSize,
-        null,
-        true, // bold
-        null,
-        null,
-        null,
-        null,
-        new Color(255, 255, 255)
-    ).image;
-    img = newCanvas(new Point(
-        Math.max(t.width, f.width),
-        Math.max(t.height, f.height)
-    ));
-    lbl = this.value ? t : f;
-    x = (img.width - lbl.width) / 2;
-    y = (img.height - lbl.height) / 2;
-    img.getContext('2d').drawImage(lbl, x, y);
-    return img;
+BooleanSlotMorph.prototype.isEmptySlot = function () {
+    return true;
 };
 
 // ArrowMorph //////////////////////////////////////////////////////////
@@ -10365,12 +10081,6 @@ MultiArgMorph.prototype.removeInput = function () {
 // MultiArgMorph events:
 
 MultiArgMorph.prototype.mouseClickLeft = function (pos) {
-    // prevent expansion in the palette
-    // (because it can be hard or impossible to collapse again)
-    if (!this.parentThatIsA(ScriptsMorph)) {
-        this.escalateEvent('mouseClickLeft', pos);
-        return;
-    }
     // if the <shift> key is pressed, repeat action 5 times
     var arrows = this.arrows(),
         leftArrow = arrows.children[0],
@@ -12039,10 +11749,6 @@ ScriptFocusMorph.prototype.trigger = function () {
         current.mouseClickLeft();
         return;
     }
-    if (current instanceof BooleanSlotMorph) {
-        current.toggleValue();
-        return;
-    }
     if (current instanceof InputSlotMorph) {
         if (!current.isReadOnly) {
             delete this.fps;
@@ -12085,10 +11791,6 @@ ScriptFocusMorph.prototype.deleteLastElement = function () {
         if (current.arrows().children[0].isVisible) {
             current.removeInput();
         }
-    } else if (current instanceof BooleanSlotMorph) {
-        if (!current.isStatic) {
-            current.setContents(null);
-        }
     } else if (current instanceof ReporterBlockMorph) {
         if (!current.isTemplate) {
             this.lastElement();
@@ -12110,7 +11812,7 @@ ScriptFocusMorph.prototype.deleteLastElement = function () {
 };
 
 ScriptFocusMorph.prototype.insertBlock = function (block) {
-    var pb, stage, ide;
+    var pb;
     block.isTemplate = false;
     block.isDraggable = true;
 
@@ -12173,21 +11875,6 @@ ScriptFocusMorph.prototype.insertBlock = function (block) {
     this.editor.adjustBounds();
     // block.scrollIntoView();
     this.fixLayout();
-
-    // register generic hat blocks
-    if (block.selector === 'receiveCondition') {
-        if (this.editor.owner) {
-            stage = this.editor.owner.parentThatIsA(StageMorph);
-            if (stage) {
-                stage.enableCustomHatBlocks = true;
-                stage.threads.pauseCustomHatBlocks = false;
-                ide = stage.parentThatIsA(IDE_Morph);
-                if (ide) {
-                    ide.controlBar.stopButton.refresh();
-                }
-            }
-        }
-    }
 };
 
 ScriptFocusMorph.prototype.insertVariableGetter = function () {
@@ -12430,7 +12117,6 @@ ScriptFocusMorph.prototype.items = function () {
             !(each instanceof TemplateSlotMorph) &&
             (!each.isStatic ||
                 each.choices ||
-                each instanceof BooleanSlotMorph ||
                 each instanceof RingMorph ||
                 each instanceof MultiArgMorph ||
                 each instanceof CommandSlotMorph);
@@ -12594,7 +12280,7 @@ ScriptFocusMorph.prototype.reactToKeyEvent = function (key) {
     default:
         types = this.blockTypes();
         if (!(this.element instanceof ScriptsMorph) &&
-                types && contains(types, 'reporter')) {
+                contains(types, 'reporter')) {
             vNames = Object.keys(this.element.getVarNamesDict());
         }
         if (types) {

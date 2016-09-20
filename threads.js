@@ -61,7 +61,7 @@ StageMorph, SpriteMorph, StagePrompterMorph, Note, modules, isString, copy,
 isNil, WatcherMorph, List, ListWatcherMorph, alert, console, TableMorph,
 TableFrameMorph, isSnapObject*/
 
-modules.threads = '2016-August-12';
+modules.threads = '2016-May-04';
 
 var ThreadManager;
 var Process;
@@ -149,8 +149,6 @@ function invoke(
             action.blockSequence(),
             proc.homeContext
         );
-    } else if (action.evaluate) {
-        return action.evaluate();
     } else {
         throw new Error('expecting a block or ring but getting ' + action);
     }
@@ -348,7 +346,9 @@ ThreadManager.prototype.doWhen = function (block, stopIt) {
         }
     }
     if (stopIt) {return; }
-    if ((!block) || this.findProcess(block)
+    if ((!block) ||
+        !(pred instanceof ReporterBlockMorph) ||
+        this.findProcess(block)
     ) {return; }
     try {
         if (invoke(
@@ -412,7 +412,6 @@ ThreadManager.prototype.doWhen = function (block, stopIt) {
     isDead              boolean indicating a terminated clone process
     timeout             msecs after which to force yield
     lastYield           msecs when the process last yielded
-    isFirstStep         boolean indicating whether on first step - for clones
     errorFlag           boolean indicating whether an error was encountered
     prompter            active instance of StagePrompterMorph
     httpRequest         active instance of an HttpRequest or null
@@ -448,8 +447,7 @@ function Process(topBlock, onComplete, rightAway) {
     this.errorFlag = false;
     this.context = null;
     this.homeContext = new Context();
-    this.lastYield =  Date.now();
-    this.isFirstStep = true;
+    this.lastYield = Date.now();
     this.isAtomic = false;
     this.prompter = null;
     this.httpRequest = null;
@@ -494,8 +492,10 @@ Process.prototype.runStep = function (deadline) {
     this.readyToYield = false;
     while (!this.readyToYield
             && this.context
-            && (Date.now() - this.lastYield < this.timeout)
-    ) {
+            && // (this.isAtomic ?
+                    (Date.now() - this.lastYield < this.timeout)
+               //             : true)
+                ) {
         // also allow pausing inside atomic steps - for PAUSE block primitive:
         if (this.isPaused) {
             return this.pauseStep();
@@ -511,7 +511,6 @@ Process.prototype.runStep = function (deadline) {
         this.evaluateContext();
     }
     this.lastYield = Date.now();
-    this.isFirstStep = false;
 
     // make sure to redraw atomic things
     if (this.isAtomic &&
@@ -1773,7 +1772,6 @@ Process.prototype.doPauseAll = function () {
 // Process loop primitives
 
 Process.prototype.doForever = function (body) {
-    this.context.inputs = []; // force re-evaluation of C-slot
     this.pushContext('doYield');
     if (body) {
         this.pushContext(body.blockSequence());
@@ -2006,9 +2004,7 @@ Process.prototype.doStopAllSounds = function () {
 
 Process.prototype.doAsk = function (data) {
     var stage = this.homeContext.receiver.parentThatIsA(StageMorph),
-        rcvr = this.blockReceiver(),
-        isStage = rcvr instanceof StageMorph,
-        isHiddenSprite = rcvr instanceof SpriteMorph && !rcvr.isVisible,
+        isStage = this.blockReceiver() instanceof StageMorph,
         activePrompter;
 
     stage.keysPressed = {};
@@ -2018,12 +2014,10 @@ Process.prototype.doAsk = function (data) {
             function (morph) {return morph instanceof StagePrompterMorph; }
         );
         if (!activePrompter) {
-            if (!isStage && !isHiddenSprite) {
-                rcvr.bubble(data, false, true);
+            if (!isStage) {
+                this.blockReceiver().bubble(data, false, true);
             }
-            this.prompter = new StagePrompterMorph(
-                isStage || isHiddenSprite ? data : null
-            );
+            this.prompter = new StagePrompterMorph(isStage ? data : null);
             if (stage.scale < 1) {
                 this.prompter.setWidth(stage.width() - 10);
             } else {
@@ -2041,7 +2035,7 @@ Process.prototype.doAsk = function (data) {
             stage.lastAnswer = this.prompter.inputField.getValue();
             this.prompter.destroy();
             this.prompter = null;
-            if (!isStage) {rcvr.stopTalking(); }
+            if (!isStage) {this.blockReceiver().stopTalking(); }
             return null;
         }
     }
@@ -2070,67 +2064,357 @@ Process.prototype.reportURL = function (url) {
     this.pushContext();
 };
 
-// Process event messages primitives
-
-Process.prototype.doBroadcast = function (message) {
-    // messages are user-defined events, and by default global, same as in
-    // Scratch. An experimental feature, messages can be sent to a single
-    // sprite or to a list of sprites by using a 2-item list in the message
-    // slot, where the first slot is a message text, and the second slot
-    // its recipient(s), identified either by a single name or sprite, or by
-    // a list of names or sprites (can be a heterogeneous list).
-
-    var stage = this.homeContext.receiver.parentThatIsA(StageMorph),
-        thisObj,
-        msg = message,
-        trg,
-        rcvrs,
-        myself = this,
-        hats = [],
-        procs = [];
-
-    if (message instanceof List && (message.length() === 2)) {
-        thisObj = this.blockReceiver();
-        msg = message.at(1);
-        trg = message.at(2);
-        if (isSnapObject(trg)) {
-            rcvrs = [trg];
-        } else if (isString(trg)) {
-            // assume the string to be the name of a sprite or the stage
-            if (trg === stage.name) {
-                rcvrs = [stage];
-            } else {
-                rcvrs = [this.getOtherObject(trg, thisObj, stage)];
-            }
-        } else if (trg instanceof List) {
-            // assume all elements to be sprites or sprite names
-            rcvrs = trg.itemsArray().map(function (each) {
-                return myself.getOtherObject(each, thisObj, stage);
-            });
-        } else {
-            return; // abort
-        }
-    } else { // global
-        rcvrs = stage.children.concat(stage);
+// Process URI retrieval (interpolated)        // metas  forward URL
+Process.prototype.reportURLforwardMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/forward', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
     }
-    if (msg !== '') {
-        stage.lastMessage = message; // the actual data structure
-        rcvrs.forEach(function (morph) {
-            if (isSnapObject(morph)) {
-                hats = hats.concat(morph.allHatBlocksFor(msg));
-            }
-        });
-        hats.forEach(function (block) {
-            procs.push(stage.threads.startProcess(block, stage.isThreadSafe));
-        });
-    }
-    return procs;
+    this.pushContext('doYield');
+    this.pushContext();
 };
 
-// old purely global broadcast code, commented out and retained in case
-// we need to revert
+// Process URI retrieval (interpolated)        // metas  backward URL
+Process.prototype.reportURLbackwardMetas = function (url) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/backward', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
 
-/*
+// Process URI retrieval (interpolated)        // metas  left URL
+Process.prototype.reportURLleftMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/left', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  right URL
+Process.prototype.reportURLrightMetas = function (url) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/right', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+// Process URI retrieval (interpolated)        // metas  stop URL
+Process.prototype.reportURLstopMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/stop', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  pwm URL
+Process.prototype.reportURLpwmMetas = function (url,pin,value) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/pwm/' + pin + '/' + value , true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  pinOutput URL
+Process.prototype.reportURLpinOutputMetas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/mode/' + pin + '/o', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  pinInput URL
+Process.prototype.reportURLpinInputMetas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/mode/' + pin + '/i', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+Process.prototype.reportURLdigitalPinOutput0Metas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/digital/' + pin + '/0', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  digitalPinOutput1 URL
+Process.prototype.reportURLdigitalPinOutput1Metas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/digital/' + pin + '/1', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+// Process URI retrieval (interpolated)        // metas  readDigitalPin URL
+Process.prototype.reportURLreadDigitalPinMetas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/digital/' + pin + '/r', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  readAnalogPin URL
+Process.prototype.reportURLreadAnalogPinMetas = function (url,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/analog/' + pin, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  readTemperature URL
+Process.prototype.reportURLreadTemperatureMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/temperature', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  readHumidity URL
+Process.prototype.reportURLreadHumidityMetas = function (url) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/humidity', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  offLED URL
+Process.prototype.reportURLoffLEDMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/rgb/address/off', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  setLED URL
+Process.prototype.reportURLsetLEDMetas = function (url, r, g, b, w) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://' + url + '/rgb/address/' + r + '/' + g + '/' + b + '/' + w + '/', true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+
+// Process URI retrieval (interpolated)        // metas  debug URL
+Process.prototype.reportURLdebugMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", 'http://' + url , true);
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  debugs URL
+Process.prototype.reportURLdebugsslMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", 'https://' + url , true);
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  http command URL
+Process.prototype.reportURLhttpCommandMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", 'http://' + url , true);
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  weather command URL
+Process.prototype.reportURLweatherMetas = function (hkweatherLocation, metasUnit) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", './metasextra/hko_rss.php?location=' + hkweatherLocation +'&unit=' + metasUnit, true);
+        this.httpRequest.send(null);
+	} else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas hk transport command URL
+Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
+    var response;
+	var langCode;
+   	var ide;
+    if (this.homeContext.receiver) {
+        ide = this.homeContext.receiver.parentThatIsA(IDE_Morph);
+		if (ide) {
+           langCode = ide.getSetting('language')
+        }
+	
+    }
+	
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", './metasextra/hktd_xml.php?location=' + hkroad +'&unit=' + metasUnit + '&lang=' +langCode, true);
+        this.httpRequest.send(null);
+	} else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+	
+};
+
+// Process event messages primitives
+
 Process.prototype.doBroadcast = function (message) {
     var stage = this.homeContext.receiver.parentThatIsA(StageMorph),
         hats = [],
@@ -2149,7 +2433,6 @@ Process.prototype.doBroadcast = function (message) {
     }
     return procs;
 };
-*/
 
 Process.prototype.doBroadcastAndWait = function (message) {
     if (!this.context.activeSends) {
@@ -2358,8 +2641,12 @@ Process.prototype.isImmutable = function (obj) {
         type === 'undefined';
 };
 
-Process.prototype.reportBoolean = function (bool) {
-    return bool;
+Process.prototype.reportTrue = function () {
+    return true;
+};
+
+Process.prototype.reportFalse = function () {
+    return false;
 };
 
 Process.prototype.reportRound = function (n) {
@@ -2471,16 +2758,16 @@ Process.prototype.reportLetter = function (idx, string) {
         return '';
     }
     var i = +(idx || 0),
-        str = isNil(string) ? '' : string.toString();
+        str = (string || '').toString();
     return str[i - 1] || '';
 };
 
-Process.prototype.reportStringSize = function (data) {
-    if (data instanceof List) { // catch a common user error
-        return data.length();
+Process.prototype.reportStringSize = function (string) {
+    if (string instanceof List) { // catch a common user error
+        return string.length();
     }
-
-    return isNil(data) ? 0 : data.toString().length;
+    var str = (string || '').toString();
+    return str.length;
 };
 
 Process.prototype.reportUnicode = function (string) {
@@ -2505,10 +2792,10 @@ Process.prototype.reportTextSplit = function (string, delimiter) {
     if (!contains(types, delType)) {
         throw new Error('expecting a text delimiter instead of a ' + delType);
     }
-    str = isNil(string) ? '' : string.toString();
+    str = (string || '').toString();
     switch (this.inputOption(delimiter)) {
     case 'line':
-        // Unicode compliant line splitting (platform independent)
+        // Unicode Compliant Line Splitting (Platform independent)
         // http://www.unicode.org/reports/tr18/#Line_Boundaries
         del = /\r\n|[\n\v\f\r\x85\u2028\u2029]/;
         break;
@@ -2526,7 +2813,7 @@ Process.prototype.reportTextSplit = function (string, delimiter) {
         del = '';
         break;
     default:
-        del = isNil(delimiter) ? '' : delimiter.toString();
+        del = (delimiter || '').toString();
     }
     return new List(str.split(del));
 };
@@ -2663,11 +2950,11 @@ Process.prototype.createClone = function (name) {
     if (!name) {return; }
     if (thisObj) {
         if (this.inputOption(name) === 'myself') {
-            thisObj.createClone(!this.isFirstStep);
+            thisObj.createClone();
         } else {
             thatObj = this.getOtherObject(name, thisObj);
             if (thatObj) {
-                thatObj.createClone(!this.isFirstStep);
+                thatObj.createClone();
             }
         }
     }
@@ -3394,7 +3681,7 @@ Context.prototype.continuation = function () {
     } else if (this.parentContext) {
         cont = this.parentContext;
     } else {
-        return new Context(null, 'doStop');
+        return new Context(null, 'doYield');
     }
     cont = cont.copyForContinuation();
     cont.tag = null;
@@ -3668,6 +3955,7 @@ VariableFrame.prototype.allNames = function () {
     reserved to the daring ;-)
 */
     var answer = [], each, dict = this.allNamesDict();
+//alert(JSON.stringify(dict, null, 4));
 
     for (each in dict) {
         if (Object.prototype.hasOwnProperty.call(dict, each)) {

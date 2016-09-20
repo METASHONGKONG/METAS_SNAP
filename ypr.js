@@ -992,7 +992,25 @@ var sb = (function (sb) {
 			'list:contains:': 'reportListContainsItem',
 			// 'contentsOfList:': '',
 			// 'copyOfList:': ''
-
+  /*	        
+			// metas                                     //ringo for add api
+			'forward:': 'reportURLforwardMetas',
+			'reportURLpwmMetas:': 'reportURLpwmMetas',
+  		    'turnRight:': 'turn',
+			'heading:': 'setHeading',
+			'pointTowards:': 'doFaceTowards',      
+			'gotoX:y:': 'gotoXY',
+			'gotoSpriteOrMouse:': 'doGotoObject',
+			'glideSecs:toX:y:elapsed:from:': 'doGlide',
+			'changeXposBy:': 'changeXPosition',
+			'xpos:': 'setXPosition',
+			'changeYposBy:': 'changeYPosition',
+			'ypos:': 'setYPosition',
+			'bounceOffEdge': 'bounceOffEdge',
+			'xpos': 'xPosition',
+			'ypos': 'yPosition',
+			'heading': 'direction',
+*/			
 			// Kludge
 			_warp: 'doWarp'
 		};

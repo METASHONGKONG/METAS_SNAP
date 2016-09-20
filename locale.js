@@ -42,7 +42,7 @@
 
 /*global modules, contains*/
 
-modules.locale = '2016-July-14';
+modules.locale = '2016-May-04';
 
 // Global stuff
 
@@ -160,18 +160,18 @@ SnapTranslator.dict.de = {
     'translator_e-mail':
         'jens@moenig.org',
     'last_changed':
-        '2016-07-12'
+        '2016-05-02'
 };
 
 SnapTranslator.dict.it = {
     'language_name':
         'Italiano',
     'language_translator':
-        'Stefano Federici, Alberto Firpo, Massimo Ghisalberti',
+        'Stefano Federici, Alberto Firpo',
     'translator_e-mail':
-        's_federici@yahoo.com, albertofirpo12@gmail.com, zairik@gmail.com',
+        's_federici@yahoo.com, albertofirpo12@gmail.com',
     'last_changed':
-        '2016-05-10'
+        '2015-01-12'
 };
 
 SnapTranslator.dict.ja = {
@@ -237,7 +237,7 @@ SnapTranslator.dict.zh = {
     'translator_e-mail':
         'ubertao@qq.com/djh@rhjxx.cn',
     'last_changed':
-        '2016-05-09'
+        '2016-04-27'
 };
 
 SnapTranslator.dict.eo = {
@@ -277,11 +277,11 @@ SnapTranslator.dict.ru = {
     'language_name':
         'Русский',
     'language_translator':
-        'Svetlana Ptashnaya, Проскурнёв Артём',
+        'Svetlana Ptashnaya',
     'translator_e-mail':
-        'svetlanap@berkeley.edu, tema@school830.ru',
+        'svetlanap@berkeley.edu',
     'last_changed':
-        '2016-05-25'
+        '2014-09-29'
 };
 
 SnapTranslator.dict.es = {
@@ -365,11 +365,11 @@ SnapTranslator.dict.ca = {
     'language_name':
         'Català',
     'language_translator':
-        'Bernat Romagosa Carrasquer, Joan Guillén i Pelegay',
+        'Bernat Romagosa Carrasquer',
     'translator_e-mail':
-        'bernat@arduino.org, jguille2@xtec.cat',
+        'bromagosa@citilab.eu',
     'last_changed':
-        '2016-07-07'
+        '2016-02-24'
 };
 
 SnapTranslator.dict.fi = {
@@ -391,7 +391,7 @@ SnapTranslator.dict.sv = {
     'translator_e-mail':
         'eolsson@gmail.com',
     'last_changed':
-        '2016-06-09'
+        '2014-12-14'
 };
 
 SnapTranslator.dict.pt_BR = {
