@@ -1,15 +1,11 @@
+Version 1.0
 
-Snap! Build Your Own Blocks
+METAS Snap! Build Your Own Blocks
 
-http://snap.berkeley.edu
+http://snap.metaslab.com/snap/snap.html
 
 a visual, blocks based programming language
 inspired by Scratch
-
-written by Jens Mönig and Brian Harvey
-jens@moenig.org, bh@cs.berkeley.edu
-
-Copyright (C) 2016 by Jens Mönig and Brian Harvey
 
 Snap! is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -23,3 +19,8 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+written by Jens Mönig and Brian Harvey
+jens@moenig.org, bh@cs.berkeley.edu
+
+Copyright (C) 2016 by Jens Mönig and Brian Harvey
