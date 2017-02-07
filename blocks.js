@@ -1018,6 +1018,51 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             );
             part.isStatic = true;
             break;	
+        case '%joystick_no':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '1' : ['1'],
+					'2' : ['2'],
+					'3' : ['3'],
+					'4' : ['4']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
+        case '%control':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '0' : ['0'],
+                    '1' : ['1'],
+					'2' : ['2'],
+					'3' : ['3'],
+					'4' : ['4'],
+					'5' : ['5'],
+					'6' : ['6'],
+					'7' : ['7'],
+					'8' : ['8'],
+					'9' : ['9'],
+                    '10' : ['10'],
+					'12' : ['12'],
+					'13' : ['13'],
+					'14' : ['14'],
+					'15' : ['15'],
+					'16' : ['16'],
+					'17' : ['17'],
+					'18' : ['18'],
+					'19' : ['19'],
+					'20' : ['20'],
+					'21' : ['21']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
 		case '%hkroad':
             part = new InputSlotMorph(
                 null, // text

@@ -22,6 +22,7 @@
 		<script type="text/javascript" src="FileSaver.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 		<script type="text/javascript">
+            var joystick_digital = [];
             var testing =1232;
         
 			var world;
@@ -52,11 +53,13 @@
  
         for(var i=0;i<gp.buttons.length;i++) {
             html+= "Button "+(i+1)+": ";
-            if(gp.buttons[0].pressed){ 
+            if(gp.buttons[i].pressed){ 
                 html+= " pressed";
+                joystick_digital[i] = 1;
                 testing = 1;
             }else{
                 testing = 0;
+                joystick_digital[i] = 0;
             }
             html+= "<br/>";
         }
@@ -79,7 +82,7 @@
                 hasGP = true;
                 $("#gamepadPrompt").html("Gamepad connected!");
                 console.log("connection event");
-                repGP = window.setInterval(reportOnGamepad,10);
+                repGP = window.setInterval(reportOnGamepad,100);
             });
  
             $(window).on("gamepaddisconnected", function() {

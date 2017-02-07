@@ -2386,6 +2386,14 @@ Process.prototype.reportURLweatherMetas = function (hkweatherLocation, metasUnit
     this.pushContext();
 };
 
+// Process URI retrieval (interpolated)        // metas  weather command URL
+Process.prototype.reportGameControlMetas = function (joystick_no, control) {
+    var response = joystick_digital[control];
+	return response ;
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // Process URI retrieval (interpolated)        // metas hk transport command URL
 Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
     var response;

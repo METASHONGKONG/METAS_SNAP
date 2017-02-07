@@ -265,7 +265,7 @@ SnapTranslator.dict.tw = {
 	'Yuen Long Park' : '元 朗 公 園',
 	
 	'HK Transport %hkroad option %metasUnit': '香港交通 %hkroad 選項 %metasUnit',
-	
+	'Joystick %joystick_no Control %control': '手制 %joystick_no 控制 %control',
 	'Island Eastern Corridor westbound near Lei King Wan via Cross Harbour Tunnel' :                      '東區走廊西行近鯉景灣 經 紅磡海底隧道',
 	'Island Eastern Corridor westbound near Lei King Wan via Eastern Harbour Crossing' : 		      '東區走廊西行近鯉景灣 經 東區海底隧道',
 	'Gloucester Road eastbound near the Revenue Tower via Cross Harbour Tunnel' : 			      '告士打道東行近稅務大樓 經 紅磡海底隧道',

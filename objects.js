@@ -1336,6 +1336,12 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'ioT',
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
+        },
+		reportGameControlMetas: {
+            type: 'reporter',
+            category: 'ioT',
+            spec: 'Joystick %joystick_no Control %control',
+            defaults: ['','digital']
         }
 		
     };
@@ -2208,7 +2214,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 		blocks.push(block('reportURLweatherMetas'));
 		blocks.push('-');
 	    blocks.push(block('reportURLtransportMetas'));
-		
+		blocks.push('-');
+	    blocks.push(block('reportGameControlMetas'));
 /*		
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
