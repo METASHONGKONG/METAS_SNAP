@@ -211,7 +211,7 @@ SnapTranslator.dict.tw = {
 	    '%s 設定針腳 pin %n 輸出模式',	
     '%s pin %n input mode':
 	    '%s 設定針腳 pin %n 輸入模式',
-    '%s set digital pin %n output 0':
+    '%s set digital pin %n output %digitalpin':
 	    '%s 設定數碼針腳 %n 輸出0',
 	'%s set digital pin %n output 1':
 	    '%s 設定數碼針腳 %n 輸出1',

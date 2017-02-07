@@ -1245,34 +1245,16 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'PWM %s set pin %pwmpin output %n',
             defaults: ['IP',1,0]
         },
-		reportURLpinOutputMetas: {
-            type: 'command',
-            category: 'robotic',
-            spec: '%s set pin %n output mode',
-            defaults: ['IP',0]
-        },
-		reportURLpinInputMetas: {
-            type: 'command',
-            category: 'robotic',
-            spec: '%s pin %n input mode',
-            defaults: ['IP',0]
-        },
 		reportURLdigitalPinOutput0Metas: {
             type: 'command',
             category: 'robotic',
-            spec: '%s set digital pin %n output 0',
+            spec: '%s set digital pin %n output %digitalpin',
             defaults: ['IP',0]
         },
 		reportURLdigitalPinOutput1Metas: {
             type: 'command',
             category: 'robotic',
             spec: '%s set digital pin %n output 1',
-            defaults: ['IP',0]
-        },
-		reportURLreadDigitalPinMetas: {
-            type: 'reporter',
-            category: 'robotic',
-            spec: '%s read digital pin %n value',
             defaults: ['IP',0]
         },
 		reportURLreadAnalogPinMetas: {
@@ -2123,15 +2105,11 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 		blocks.push(block('reportURLstopMetas'));
 		blocks.push('-');
 		blocks.push(block('reportURLpwmMetas'));
-		blocks.push(block('reportURLpinOutputMetas'));
-		blocks.push(block('reportURLpinInputMetas'));
 		blocks.push('-');
 		blocks.push(block('reportURLdigitalPinOutput0Metas'));
 		blocks.push(block('reportURLdigitalPinOutput1Metas'));
 		blocks.push('-');
-		blocks.push(block('reportURLreadDigitalPinMetas'));
 		blocks.push(block('reportURLreadAnalogPinMetas'));
-		blocks.push('-');
 		blocks.push(block('reportURLreadTemperatureMetas'));
 		blocks.push(block('reportURLreadHumidityMetas'));
 		blocks.push('-');

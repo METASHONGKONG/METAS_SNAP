@@ -2159,37 +2159,7 @@ Process.prototype.reportURLpwmMetas = function (url,pin,value) {
     this.pushContext();
 };
 
-// Process URI retrieval (interpolated)        // metas  pinOutput URL
-Process.prototype.reportURLpinOutputMetas = function (url,pin) {
-    var response;
-    if (!this.httpRequest) {
-        this.httpRequest = new XMLHttpRequest();
-        this.httpRequest.open("GET", 'http://' + url + '/mode/' + pin + '/o', true);
-        this.httpRequest.send(null);
-    } else if (this.httpRequest.readyState === 4) {
-        response = this.httpRequest.responseText;
-        this.httpRequest = null;
-        return response;
-    }
-    this.pushContext('doYield');
-    this.pushContext();
-};
 
-// Process URI retrieval (interpolated)        // metas  pinInput URL
-Process.prototype.reportURLpinInputMetas = function (url,pin) {
-    var response;
-    if (!this.httpRequest) {
-        this.httpRequest = new XMLHttpRequest();
-        this.httpRequest.open("GET", 'http://' + url + '/mode/' + pin + '/i', true);
-        this.httpRequest.send(null);
-    } else if (this.httpRequest.readyState === 4) {
-        response = this.httpRequest.responseText;
-        this.httpRequest = null;
-        return response;
-    }
-    this.pushContext('doYield');
-    this.pushContext();
-};
 
 // Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
 Process.prototype.reportURLdigitalPinOutput0Metas = function (url,pin) {
@@ -2222,21 +2192,7 @@ Process.prototype.reportURLdigitalPinOutput1Metas = function (url,pin) {
     this.pushContext('doYield');
     this.pushContext();
 };
-// Process URI retrieval (interpolated)        // metas  readDigitalPin URL
-Process.prototype.reportURLreadDigitalPinMetas = function (url,pin) {
-    var response;
-    if (!this.httpRequest) {
-        this.httpRequest = new XMLHttpRequest();
-        this.httpRequest.open("GET", 'http://' + url + '/digital/' + pin + '/r', true);
-        this.httpRequest.send(null);
-    } else if (this.httpRequest.readyState === 4) {
-        response = this.httpRequest.responseText;
-        this.httpRequest = null;
-        return response;
-    }
-    this.pushContext('doYield');
-    this.pushContext();
-};
+
 
 // Process URI retrieval (interpolated)        // metas  readAnalogPin URL
 Process.prototype.reportURLreadAnalogPinMetas = function (url,pin) {
