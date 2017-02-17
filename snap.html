@@ -66,6 +66,30 @@
  
         for(var i=0;i<gp.axes.length; i+=2) {
             html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
+            if (i == 0){
+                if(gp.axes[0] == 1){
+                    joystick_digital[15] = 1;
+                    joystick_digital[14] = 0;
+                }else if(gp.axes[0] == -1){
+                    joystick_digital[15] = 0;
+                    joystick_digital[14] = 1;
+                }else{
+                    joystick_digital[15] = 0;
+                    joystick_digital[14] = 0;
+                }
+                
+                if(gp.axes[1] == 1){
+                    joystick_digital[13] = 1;
+                    joystick_digital[12] = 0;
+                }else if(gp.axes[1] == -1){
+                    joystick_digital[13] = 0;
+                    joystick_digital[12] = 1;
+                }else{
+                    joystick_digital[13] = 0;
+                    joystick_digital[12] = 0;
+                }
+                
+            }
         }
  
         $("#gamepadDisplay").html(html);
