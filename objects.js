@@ -1312,6 +1312,31 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'ioT',
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
+        },
+        // new blocks added Ken, 20170306
+        reportSetServo: {
+            type: 'command',
+            category: 'robotic',
+            spec: 'Set %s servo pin %servopin degree %n',
+            defaults: ['IP',1,180]
+        },
+        reportSetMotor: {
+            type: 'command',
+            category: 'robotic',
+            spec: 'Set %s motor no %motorpin direction %direction to %n',
+            defaults: ['IP',1,'cw',0]
+        },
+        reportReadInput: {
+            type: 'reporter',
+            category: 'robotic',
+            spec: 'Read %s input pin %digitaloutput',
+            defaults: ['IP',0]
+        },
+        reportSetOutput: {
+            type: 'command',
+            category: 'robotic',
+            spec: 'Set %s output pin %pwmpin to %n',
+            defaults: ['IP',1,1000]
         }
 		
     };
@@ -2092,6 +2117,11 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 
    } else if (cat === 'robotic') {  // metas
 
+   
+        blocks.push(block('reportSetOutput'));
+		blocks.push(block('reportSetMotor'));
+        blocks.push(block('reportSetServo'));
+		blocks.push(block('reportReadInput'));
 		blocks.push(block('reportURLreadTemperatureMetas'));
 		blocks.push(block('reportURLreadHumidityMetas'));
 		blocks.push('=');
