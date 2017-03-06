@@ -1343,13 +1343,13 @@ SpriteMorph.prototype.initBlocks = function () {
         reportRealSetDigital: {
             type: 'command',
             category: 'Beta',
-            spec: 'Set %s digital pin %digitalpin output %digitaloutput',
+            spec: 'Set %s digital pin %digitalpin to %digitaloutput',
             defaults: ['ID',1,1]
         },
         reportRealSetPWM: {
             type: 'command',
             category: 'Beta',
-            spec: 'Set %s PWM pin %pwmpin output %n',
+            spec: 'Set %s PWM pin %pwmpin to %n',
             defaults: ['ID',1,1000]
         },
         reportRealReadAnalog: {
@@ -1379,7 +1379,7 @@ SpriteMorph.prototype.initBlocks = function () {
         reportRealSetMotor: {
             type: 'command',
             category: 'Beta',
-            spec: 'Set %s motor no %motorpin direction %direction output %n',
+            spec: 'Set %s motor no %motorpin direction %direction to %n',
             defaults: ['ID',1,'cw',0]
         },
         reportRealReadInput: {
@@ -1391,7 +1391,7 @@ SpriteMorph.prototype.initBlocks = function () {
         reportRealSetOutput: {
             type: 'command',
             category: 'Beta',
-            spec: 'Set %s output pin %pwmpin output %n',
+            spec: 'Set %s output pin %pwmpin to %n',
             defaults: ['ID',1,1000]
         }
 		
@@ -2296,15 +2296,15 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 	} else if (cat === 'Beta') {  // metas
    
         blocks.push(block('reportRealSetOutput'));
-        blocks.push(block('reportRealReadInput'));
         blocks.push(block('reportRealSetMotor'));
         blocks.push(block('reportRealSetServo'));
+        blocks.push(block('reportRealReadInput'));
+	    blocks.push(block('reportRealReadTemp'));
+	    blocks.push(block('reportRealReadHumi'));
 		blocks.push('=');
         blocks.push(block('reportRealSetDigital'));
 		blocks.push(block('reportRealSetPWM'));
 	    blocks.push(block('reportRealReadAnalog'));
-	    blocks.push(block('reportRealReadTemp'));
-	    blocks.push(block('reportRealReadHumi'));
 
        
 	}else if (cat === 'operators') {
