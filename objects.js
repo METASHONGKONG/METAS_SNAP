@@ -129,7 +129,8 @@ SpriteMorph.prototype.categories =
 		'ioT',
 		'connection',
         'lists',
-        'other'
+        'other',
+        'Beta'
     ];
 
 SpriteMorph.prototype.blockColor = {
@@ -145,7 +146,8 @@ SpriteMorph.prototype.blockColor = {
 	ioT : new Color(210, 210, 20),
 	connection : new Color(100, 100, 100),
     lists : new Color(217, 77, 17),
-    other: new Color(150, 150, 150)
+    other: new Color(150, 150, 150),
+    Beta: new Color(150, 150, 150)
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -1336,6 +1338,25 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'ioT',
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
+        },
+        //Beta
+        reportRealSetDigital: {
+            type: 'command',
+            category: 'Beta',
+            spec: 'Set %s digital pin %digitalpin output %digitaloutput',
+            defaults: ['ID',1,1]
+        },
+        reportRealSetPWM: {
+            type: 'command',
+            category: 'Beta',
+            spec: 'Set %s PWM pin %pwmpin output %n',
+            defaults: ['ID',1,0]
+        },
+        reportRealReadInput: {
+            type: 'reporter',
+            category: 'Beta',
+            spec: 'Read %s analog pin %digitaloutput',
+            defaults: ['ID',0]
         }
 		
     };
@@ -2236,7 +2257,16 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         }
 
        
-	} else if (cat === 'operators') {
+	} else if (cat === 'Beta') {  // metas
+   
+        blocks.push(block('reportRealSetDigital'));
+        blocks.push('-');
+		blocks.push(block('reportRealSetPWM'));
+		blocks.push('-');
+	    blocks.push(block('reportRealReadInput'));
+
+       
+	}else if (cat === 'operators') {
 
         blocks.push(block('reifyScript'));
         blocks.push(block('reifyReporter'));

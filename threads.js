@@ -2413,6 +2413,58 @@ Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
 	
 };
 
+// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+Process.prototype.reportRealSetDigital = function (id,pin,output) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/output?id=' + id + '&mode=digital&pin=' + pin + '&intensity=' + output, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+Process.prototype.reportRealSetPWM = function (id,pin,output) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/output?id=' + id + '&mode=pwm&pin=' + pin + '&intensity=' + output, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+Process.prototype.reportRealReadInput = function (id,pin) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/read?id=' + id, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        if (pin == 0)
+            response = JSON.parse(this.httpRequest.responseText).a0;
+        else if (pin == 1)
+            response = JSON.parse(this.httpRequest.responseText).a1;
+        
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // Process event messages primitives
 
 Process.prototype.doBroadcast = function (message) {
