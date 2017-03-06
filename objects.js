@@ -1369,6 +1369,12 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'Beta',
             spec: 'Read %s humidity',
             defaults: ['ID']
+        },
+        reportRealSetServo: {
+            type: 'command',
+            category: 'Beta',
+            spec: 'Set %s Servo pin %servopin degree %n',
+            defaults: ['ID',1,0]
         }
 		
     };
@@ -2274,6 +2280,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportRealSetDigital'));
         blocks.push('-');
 		blocks.push(block('reportRealSetPWM'));
+		blocks.push('-');
+        blocks.push(block('reportRealSetServo'));
 		blocks.push('-');
 	    blocks.push(block('reportRealReadInput'));
         blocks.push('-');
