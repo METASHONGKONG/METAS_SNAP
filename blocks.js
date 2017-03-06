@@ -1041,6 +1041,19 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             );
             part.isStatic = true;
             break;
+        case '%digitaloutput':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '0' : ['0'],
+					'1' : ['1']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
 		case '%hkroad':
             part = new InputSlotMorph(
                 null, // text

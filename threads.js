@@ -2177,22 +2177,6 @@ Process.prototype.reportURLdigitalPinOutput0Metas = function (url,pin) {
     this.pushContext();
 };
 
-// Process URI retrieval (interpolated)        // metas  digitalPinOutput1 URL
-Process.prototype.reportURLdigitalPinOutput1Metas = function (url,pin) {
-    var response;
-    if (!this.httpRequest) {
-        this.httpRequest = new XMLHttpRequest();
-        this.httpRequest.open("GET", 'http://' + url + '/digital/' + pin + '/1', true);
-        this.httpRequest.send(null);
-    } else if (this.httpRequest.readyState === 4) {
-        response = this.httpRequest.responseText;
-        this.httpRequest = null;
-        return response;
-    }
-    this.pushContext('doYield');
-    this.pushContext();
-};
-
 
 // Process URI retrieval (interpolated)        // metas  readAnalogPin URL
 Process.prototype.reportURLreadAnalogPinMetas = function (url,pin) {

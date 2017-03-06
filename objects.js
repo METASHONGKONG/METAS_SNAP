@@ -1212,67 +1212,61 @@ SpriteMorph.prototype.initBlocks = function () {
         reportURLforwardMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'forward %s',
+            spec: 'Metas car %s forward',
             defaults: ['IP']
         },
 		reportURLbackwardMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'backward %s',
+            spec: 'Metas car %s backward',
             defaults: ['IP']
         },
 		reportURLleftMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'left %s',
+            spec: 'Metas car %s left',
             defaults: ['IP']
         },
 		reportURLrightMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'right %s',
+            spec: 'Metas car %s right',
             defaults: ['IP']
         },
 		reportURLstopMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'stop %s',
+            spec: 'Metas car %s stop',
             defaults: ['IP']
         },
 		reportURLpwmMetas: {
             type: 'command',
             category: 'robotic',
-            spec: 'PWM %s set pin %pwmpin output %n',
-            defaults: ['IP',1,0]
+            spec: 'Set %s PWM pin %pwmpin to %n',
+            defaults: ['IP',1,1000]
         },
 		reportURLdigitalPinOutput0Metas: {
             type: 'command',
             category: 'robotic',
-            spec: '%s set digital pin %n output %digitalpin',
-            defaults: ['IP',0]
-        },
-		reportURLdigitalPinOutput1Metas: {
-            type: 'command',
-            category: 'robotic',
-            spec: '%s set digital pin %n output 1',
-            defaults: ['IP',0]
+            spec: 'Set %s digital pin %pwmpin to %digitaloutput',
+            defaults: ['IP',1,1]
         },
 		reportURLreadAnalogPinMetas: {
             type: 'reporter',
             category: 'robotic',
-            spec: '%s read analog pin %n value',
+            spec: 'Read %s analog pin %digitaloutput',
             defaults: ['IP', 0]
         },
 		reportURLreadTemperatureMetas: {
             type: 'reporter',
             category: 'robotic',
-            spec: '%s read temperature',
+            spec: 'Read %s temperature',
             defaults: ['IP']
         },
 		reportURLreadHumidityMetas: {
             type: 'reporter',
             category: 'robotic',
-            spec: '%s read humidity',
+            spec: 'Read %s humidity',
             defaults: ['IP']
         },
 		reportURLoffLEDMetas: {
@@ -2098,26 +2092,21 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 
    } else if (cat === 'robotic') {  // metas
 
-        blocks.push(block('reportURLforwardMetas'));
+		blocks.push(block('reportURLreadTemperatureMetas'));
+		blocks.push(block('reportURLreadHumidityMetas'));
+		blocks.push('=');
+        
+		blocks.push(block('reportURLdigitalPinOutput0Metas'));
+		blocks.push(block('reportURLpwmMetas'));
+		blocks.push(block('reportURLreadAnalogPinMetas'));
+		//blocks.push(block('reportURLoffLEDMetas'));
+		//blocks.push(block('reportURLsetLEDMetas'));
+		blocks.push('=');
+	    blocks.push(block('reportURLforwardMetas'));
 		blocks.push(block('reportURLbackwardMetas'));
 		blocks.push(block('reportURLleftMetas'));
 		blocks.push(block('reportURLrightMetas'));
 		blocks.push(block('reportURLstopMetas'));
-		blocks.push('-');
-		blocks.push(block('reportURLpwmMetas'));
-		blocks.push('-');
-		blocks.push(block('reportURLdigitalPinOutput0Metas'));
-		blocks.push(block('reportURLdigitalPinOutput1Metas'));
-		blocks.push('-');
-		blocks.push(block('reportURLreadAnalogPinMetas'));
-		blocks.push(block('reportURLreadTemperatureMetas'));
-		blocks.push(block('reportURLreadHumidityMetas'));
-		blocks.push('-');
-		blocks.push(block('reportURLoffLEDMetas'));
-		blocks.push(block('reportURLsetLEDMetas'));
-		blocks.push('-');
-		blocks.push('-');
-	
 	
 /*		
         blocks.push('-');
