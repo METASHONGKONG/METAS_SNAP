@@ -1357,6 +1357,18 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'Beta',
             spec: 'Read %s analog pin %digitaloutput',
             defaults: ['ID',0]
+        },
+        reportRealReadTemp: {
+            type: 'reporter',
+            category: 'Beta',
+            spec: 'Read %s temperature',
+            defaults: ['ID']
+        },
+        reportRealReadHumi: {
+            type: 'reporter',
+            category: 'Beta',
+            spec: 'Read %s humidity',
+            defaults: ['ID']
         }
 		
     };
@@ -2264,6 +2276,10 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 		blocks.push(block('reportRealSetPWM'));
 		blocks.push('-');
 	    blocks.push(block('reportRealReadInput'));
+        blocks.push('-');
+	    blocks.push(block('reportRealReadTemp'));
+        blocks.push('-');
+	    blocks.push(block('reportRealReadHumi'));
 
        
 	}else if (cat === 'operators') {

@@ -2413,7 +2413,7 @@ Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
 	
 };
 
-// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+// REAL IOT 
 Process.prototype.reportRealSetDigital = function (id,pin,output) {
     var response;
     if (!this.httpRequest) {
@@ -2429,7 +2429,7 @@ Process.prototype.reportRealSetDigital = function (id,pin,output) {
     this.pushContext();
 };
 
-// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+// REAL IOT 
 Process.prototype.reportRealSetPWM = function (id,pin,output) {
     var response;
     if (!this.httpRequest) {
@@ -2445,7 +2445,7 @@ Process.prototype.reportRealSetPWM = function (id,pin,output) {
     this.pushContext();
 };
 
-// Process URI retrieval (interpolated)        // metas  digitalPinOutput0 URL
+// REAL IOT 
 Process.prototype.reportRealReadInput = function (id,pin) {
     var response;
     if (!this.httpRequest) {
@@ -2453,11 +2453,46 @@ Process.prototype.reportRealReadInput = function (id,pin) {
         this.httpRequest.open("GET", 'http://54.202.6.250:3000/read?id=' + id, true);
         this.httpRequest.send(null);
     } else if (this.httpRequest.readyState === 4) {
-        if (pin == 0)
-            response = JSON.parse(this.httpRequest.responseText).a0;
-        else if (pin == 1)
-            response = JSON.parse(this.httpRequest.responseText).a1;
-        
+        if (this.httpRequest.responseText != ""){
+            if (pin == 0)
+                response = JSON.parse(this.httpRequest.responseText).a0;
+            else if (pin == 1)
+                response = JSON.parse(this.httpRequest.responseText).a1;
+        }
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// REAL IOT 
+Process.prototype.reportRealReadTemp = function (id) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/read?id=' + id, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        if (this.httpRequest.responseText != "")
+            response = JSON.parse(this.httpRequest.responseText).temp;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// REAL IOT 
+Process.prototype.reportRealReadHumi = function (id) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/read?id=' + id, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        if (this.httpRequest.responseText != "")
+            response = JSON.parse(this.httpRequest.responseText).humi;
         this.httpRequest = null;
         return response;
     }
