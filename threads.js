@@ -2516,6 +2516,22 @@ Process.prototype.reportRealSetServo = function (id,pin,output) {
     this.pushContext();
 };
 
+// REAL IOT 
+Process.prototype.reportRealSetMotor = function (id,no,direction,output) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'http://54.202.6.250:3000/output?id=' + id + '&mode=motor&no=' + no + '&intensity=' + output+'&direction='+direction, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // Process event messages primitives
 
 Process.prototype.doBroadcast = function (message) {

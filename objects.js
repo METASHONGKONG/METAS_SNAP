@@ -1350,7 +1350,7 @@ SpriteMorph.prototype.initBlocks = function () {
             type: 'command',
             category: 'Beta',
             spec: 'Set %s PWM pin %pwmpin output %n',
-            defaults: ['ID',1,0]
+            defaults: ['ID',1,1000]
         },
         reportRealReadInput: {
             type: 'reporter',
@@ -1373,8 +1373,14 @@ SpriteMorph.prototype.initBlocks = function () {
         reportRealSetServo: {
             type: 'command',
             category: 'Beta',
-            spec: 'Set %s Servo pin %servopin degree %n',
-            defaults: ['ID',1,0]
+            spec: 'Set %s servo pin %servopin degree %n',
+            defaults: ['ID',1,180]
+        },
+        reportRealSetMotor: {
+            type: 'command',
+            category: 'Beta',
+            spec: 'Set %s motor no %motorpin direction %direction output %n',
+            defaults: ['ID',1,'cw',0]
         }
 		
     };
@@ -2282,6 +2288,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 		blocks.push(block('reportRealSetPWM'));
 		blocks.push('-');
         blocks.push(block('reportRealSetServo'));
+		blocks.push('-');
+        blocks.push(block('reportRealSetMotor'));
 		blocks.push('-');
 	    blocks.push(block('reportRealReadInput'));
         blocks.push('-');
