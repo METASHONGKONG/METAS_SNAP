@@ -1352,7 +1352,7 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'Set %s PWM pin %pwmpin output %n',
             defaults: ['ID',1,1000]
         },
-        reportRealReadInput: {
+        reportRealReadAnalog: {
             type: 'reporter',
             category: 'Beta',
             spec: 'Read %s analog pin %digitaloutput',
@@ -1381,6 +1381,18 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'Beta',
             spec: 'Set %s motor no %motorpin direction %direction output %n',
             defaults: ['ID',1,'cw',0]
+        },
+        reportRealReadInput: {
+            type: 'reporter',
+            category: 'Beta',
+            spec: 'Read %s input pin %digitaloutput',
+            defaults: ['ID',0]
+        },
+        reportRealSetOutput: {
+            type: 'command',
+            category: 'Beta',
+            spec: 'Set %s output pin %pwmpin output %n',
+            defaults: ['ID',1,1000]
         }
 		
     };
@@ -2283,18 +2295,15 @@ SpriteMorph.prototype.blockTemplates = function (category) {
        
 	} else if (cat === 'Beta') {  // metas
    
-        blocks.push(block('reportRealSetDigital'));
-        blocks.push('-');
-		blocks.push(block('reportRealSetPWM'));
-		blocks.push('-');
-        blocks.push(block('reportRealSetServo'));
-		blocks.push('-');
+        blocks.push(block('reportRealSetOutput'));
+        blocks.push(block('reportRealReadInput'));
         blocks.push(block('reportRealSetMotor'));
-		blocks.push('-');
-	    blocks.push(block('reportRealReadInput'));
-        blocks.push('-');
+        blocks.push(block('reportRealSetServo'));
+		blocks.push('=');
+        blocks.push(block('reportRealSetDigital'));
+		blocks.push(block('reportRealSetPWM'));
+	    blocks.push(block('reportRealReadAnalog'));
 	    blocks.push(block('reportRealReadTemp'));
-        blocks.push('-');
 	    blocks.push(block('reportRealReadHumi'));
 
        
