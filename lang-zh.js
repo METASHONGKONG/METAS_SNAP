@@ -207,18 +207,18 @@ SnapTranslator.dict.zh = {
 	    'Metas 小车 %s 停止',
         
 	'Set %s PWM pin %pwmpin to %n':
-    	'设定 %s 脉冲针脚 %n 为 %n',
+    	'设定 %s 脉冲针脚 %pwmpin 为 %n',
     'Set %s digital pin %pwmpin to %digitaloutput':
-	    '设定 %s 数码针脚 %n 为 %digitaloutput',
+	    '设定 %s 数码针脚 %pwmpin 为 %digitaloutput',
     'Read %s analog pin %digitaloutput':
-	    '读取 %s 模拟针脚 %n 数值',
+	    '读取 %s 模拟针脚 %digitaloutput 数值',
         
     'Set %s servo pin %servopin degree %n':
-    	'设定 %s 舵机针脚 %n 角度 %n',
+    	'设定 %s 舵机针脚 %servopin 角度 %n',
     'Set %s motor no %motorpin direction %direction to %n':
 	    '设定 %s 马达编号 %motorpin 方向 %direction 为 %n',
     'Read %s input pin %digitaloutput':
-	    '读取 %s 输入针脚 %n 数值',   
+	    '读取 %s 输入针脚 %digitaloutput 数值',   
     'Set %s output pin %pwmpin to %n':
 	    '设定 %s 输出针脚 %pwmpin 为 %n',        
     'Read %s temperature':

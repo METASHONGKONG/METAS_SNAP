@@ -207,18 +207,18 @@ SnapTranslator.dict.tw = {
 	    'Metas 小車 %s 停止',
         
 	'Set %s PWM pin %pwmpin to %n':
-    	'設定 %s 脈衝針腳 %n 為 %n',
+    	'設定 %s 脈衝針腳 %pwmpin 為 %n',
     'Set %s digital pin %pwmpin to %digitaloutput':
-	    '設定 %s 數碼針腳 %n 為 %digitaloutput',
+	    '設定 %s 數碼針腳 %pwmpin 為 %digitaloutput',
     'Read %s analog pin %digitaloutput':
-	    '讀取 %s 模擬針腳 %n 數值',
+	    '讀取 %s 模擬針腳 %digitaloutput 數值',
         
     'Set %s servo pin %servopin degree %n':
-    	'設定 %s 舵機針腳 %n 角度 %n',
+    	'設定 %s 舵機針腳 %servopin 角度 %n',
     'Set %s motor no %motorpin direction %direction to %n':
 	    '設定 %s 馬達編號 %motorpin 方向 %direction 為 %n',
     'Read %s input pin %digitaloutput':
-	    '讀取 %s 輸入針腳 %n 數值',   
+	    '讀取 %s 輸入針腳 %digitaloutput 數值',   
     'Set %s output pin %pwmpin to %n':
 	    '設定 %s 輸出針腳 %pwmpin 為 %n',        
     'Read %s temperature':
@@ -477,7 +477,7 @@ SnapTranslator.dict.tw = {
     'change size by %n':
         '增加角色的大小 %n ',
     'set size to %n %':
-        '設定角色的大小為 %n ',
+        '設定角色的大小為 %n %',
     'size':
         '大小',
     'show':
