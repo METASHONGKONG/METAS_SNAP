@@ -130,7 +130,7 @@ SpriteMorph.prototype.categories =
 		'connection',
         'lists',
         'other',
-        'Beta'
+        'MQTT'
     ];
 
 SpriteMorph.prototype.blockColor = {
@@ -147,7 +147,7 @@ SpriteMorph.prototype.blockColor = {
 	connection : new Color(100, 100, 100),
     lists : new Color(217, 77, 17),
     other: new Color(150, 150, 150),
-    Beta: new Color(150, 150, 150)
+    MQTT: new Color(150, 150, 150)
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -1339,58 +1339,58 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
         },
-        //Beta
+        //MQTT
         reportRealSetDigital: {
             type: 'command',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Set %s digital pin %digitalpin to %digitaloutput',
             defaults: ['ID',1,1]
         },
         reportRealSetPWM: {
             type: 'command',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Set %s PWM pin %pwmpin to %n',
             defaults: ['ID',1,1000]
         },
         reportRealReadAnalog: {
             type: 'reporter',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Read %s analog pin %digitaloutput',
             defaults: ['ID',0]
         },
         reportRealReadTemp: {
             type: 'reporter',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Read %s temperature',
             defaults: ['ID']
         },
         reportRealReadHumi: {
             type: 'reporter',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Read %s humidity',
             defaults: ['ID']
         },
         reportRealSetServo: {
             type: 'command',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Set %s servo pin %servopin degree %n',
             defaults: ['ID',1,180]
         },
         reportRealSetMotor: {
             type: 'command',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Set %s motor no %motorpin direction %direction to %n',
             defaults: ['ID',1,'cw',0]
         },
         reportRealReadInput: {
             type: 'reporter',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Read %s input pin %digitaloutput',
             defaults: ['ID',0]
         },
         reportRealSetOutput: {
             type: 'command',
-            category: 'Beta',
+            category: 'MQTT',
             spec: 'Set %s output pin %pwmpin to %n',
             defaults: ['ID',1,1000]
         }
@@ -2293,7 +2293,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         }
 
        
-	} else if (cat === 'Beta') {  // metas
+	} else if (cat === 'MQTT') {  // metas
    
         blocks.push(block('reportRealSetOutput'));
         blocks.push(block('reportRealSetMotor'));
