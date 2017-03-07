@@ -195,34 +195,36 @@ SnapTranslator.dict.tw = {
         '物聯網',
     'Robotic':
         '機械人',
-    'forward %s':
-	    '向前 %s',
-    'backward %s':
-	    '向後 %s',	
-    'left %s':
-	    '向左 %s',
-    'right %s':
-	    '向右 %s',
-    'stop %s':
-	    '停止 %s',
-	'PWM %s set pin %pwmpin output %n':
-    	'脈衝 %s 設定針腳 %n 輸出 %n',
-	'%s set pin %n output mode':
-	    '%s 設定針腳 pin %n 輸出模式',	
-    '%s pin %n input mode':
-	    '%s 設定針腳 pin %n 輸入模式',
-    '%s set digital pin %n output %digitalpin':
-	    '%s 設定數碼針腳 %n 輸出0',
-	'%s set digital pin %n output 1':
-	    '%s 設定數碼針腳 %n 輸出1',
-    '%s read temperature':
-	    '%s 讀取溫度',
-    '%s read digital pin %n value':
-	    '%s 讀取數碼針腳 %n 數據',	
-    '%s read analog pin %n value':
-	    '%s 讀取模擬針腳 %n 數值',
-    '%s read humidity':
-	    '%s 讀取濕度',
+    'Metas car %s forward':
+	    'Metas 小車 %s 前進',
+    'Metas car %s backward':
+	    'Metas 小車 %s 後退',	
+    'Metas car %s left':
+	    'Metas 小車 %s 左轉',
+    'Metas car %s right':
+	    'Metas 小車 %s 右轉',
+    'Metas car %s stop':
+	    'Metas 小車 %s 停止',
+        
+	'Set %s PWM pin %pwmpin to %n':
+    	'設定 %s 脈衝針腳 %n 為 %n',
+    'Set %s digital pin %pwmpin to %digitaloutput':
+	    '設定 %s 數碼針腳 %n 為 %digitaloutput',
+    'Read %s analog pin %digitaloutput':
+	    '讀取 %s 模擬針腳 %n 數值',
+        
+    'Set %s servo pin %servopin degree %n':
+    	'設定 %s 舵機針腳 %n 角度 %n',
+    'Set %s motor no %motorpin direction %direction to %n':
+	    '設定 %s 馬達編號 %motorpin 方向 %direction 為 %n',
+    'Read %s input pin %digitaloutput':
+	    '讀取 %s 輸入針腳 %n 數值',   
+    'Set %s output pin %pwmpin to %n':
+	    '設定 %s 輸出針腳 %pwmpin 為 %n',        
+    'Read %s temperature':
+	    '讀取 %s 溫度',
+    'Read %s humidity':
+	    '讀取 %s 濕度',
     '%s turn off LED':
 	    '%s 關上 LED',
     '%s set LED R %n G %n B %n W %n':
@@ -231,6 +233,13 @@ SnapTranslator.dict.tw = {
 	    'debug %s',
     'debug SSL %s':
 	    'debug SSL %s',
+    //not used
+    '%s read digital pin %n value':
+	    '%s 讀取數碼針腳 %n 數據',
+	'%s set pin %n output mode':
+	    '%s 設定針腳 pin %n 輸出模式',	
+    '%s pin %n input mode':
+	    '%s 設定針腳 pin %n 輸入模式',	
 			
 	'with unit' : '有單位',
 	'without unit' : '沒有單位',
