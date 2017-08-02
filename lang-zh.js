@@ -187,6 +187,151 @@ SnapTranslator.dict.zh = {
     'last_changed':
         '2016-4-27',
 
+
+//metas
+    'Connection':
+        '连接',
+    'IoT':
+        '物联网',
+    'Robotic':
+        '机械人',
+    'Metas car %s forward':
+	    'Metas 小车 %s 前进',
+    'Metas car %s backward':
+	    'Metas 小车 %s 后退',	
+    'Metas car %s left':
+	    'Metas 小车 %s 左转',
+    'Metas car %s right':
+	    'Metas 小车 %s 右转',
+    'Metas car %s stop':
+	    'Metas 小车 %s 停止',
+        
+	'Set %s PWM pin %pwmpin to %n':
+    	'设定 %s 脉冲针脚 %pwmpin 为 %n',
+    'Set %s digital pin %pwmpin to %digitaloutput':
+	    '设定 %s 数码针脚 %pwmpin 为 %digitaloutput',
+    'Read %s analog pin %digitaloutput':
+	    '读取 %s 模拟针脚 %digitaloutput 数值',
+        
+    'Set %s servo pin %servopin degree %n':
+    	'设定 %s 舵机针脚 %servopin 角度 %n',
+    'Set %s motor no %motorpin direction %direction to %n':
+	    '设定 %s 马达编号 %motorpin 方向 %direction 为 %n',
+    'Read %s input pin %digitaloutput':
+	    '读取 %s 输入针脚 %digitaloutput 数值',   
+    'Set %s output pin %pwmpin to %n':
+	    '设定 %s 输出针脚 %pwmpin 为 %n',        
+    'Read %s temperature':
+	    '读取 %s 温度',
+    'Read %s humidity':
+	    '读取 %s 湿度',
+    '%s turn off LED':
+	    '%s 关上 LED',
+    '%s set LED R %n G %n B %n W %n':
+	    '%s 设定 LED 红 %n 绿 %n 蓝 %n W %n',	
+    'debug %s':
+	    'debug %s',
+    'debug SSL %s':
+	    'debug SSL %s',
+    //not used
+    '%s read digital pin %n value':
+	    '%s 读取数码针脚 %n 数据',
+	'%s set pin %n output mode':
+	    '%s 设定针脚 pin %n 输出模式',	
+    '%s pin %n input mode':
+	    '%s 设定针脚 pin %n 输入模式',	
+			
+	'with unit' : '有单位',
+	'without unit' : '没有单位',
+	
+	'HK Weather %hkweatherLocation option %metasUnit': '香港天气 %hkweatherLocation 选项 %metasUnit',
+	
+	'Hong Kong Observatory' : '天 文 台',
+	'King\'s Park' : '京 士 柏',
+	'Wong Chuk Hang' : '黄 竹 坑',
+	'Ta Kwu Ling' : '打 鼓 岭',
+	'Lau Fau Shan' : '流 浮 山',
+	'Tai Po' : '大 埔',
+	'Sha Tin' : '沙 田',
+	'Tuen Mun' : '屯 门',
+	'Tseung Kwan O' : '将 军 澳',
+	'Sai Kung' : '西 贡',
+	'Cheung Chau' : '长 洲',
+	'Chek Lap Kok' : '赤 鱲 角',
+	'Tsing Yi' : '青 衣',
+	'Shek Kon' : '石 岗',
+	'Tsuen Wan Ho Koon' : '荃 湾 可 观',
+	'Tsuen Wan Shing Mun Valley' : '荃 湾 城 门 谷',
+	'Hong Kong Park' : '香 港 公 园',
+	'Shau Kei Wan' : '筲 箕 湾',
+	'Kowloon City' : '九 龙 城',
+	'Happy Valley' : '跑 马 地',
+	'Wong Tai Sin' : '黄 大 仙',
+	'Stanley' : '赤 柱',
+	'Kwun Tong' : '观 塘',
+	'Sham Shui Po' : '深 水 埗',
+	'Kai Tak Runway Park' : '启 德 跑 道 公 园 ',
+	'Yuen Long Park' : '元 朗 公 园',
+	
+	'HK Transport %hkroad option %metasUnit': '香港交通 %hkroad 选项 %metasUnit',
+	
+	'Island Eastern Corridor westbound near Lei King Wan via Cross Harbour Tunnel' :                      '东区走廊西行近鲤景湾 经 红磡海底隧道',
+	'Island Eastern Corridor westbound near Lei King Wan via Eastern Harbour Crossing' : 		      '东区走廊西行近鲤景湾 经 东区海底隧道',
+	'Gloucester Road eastbound near the Revenue Tower via Cross Harbour Tunnel' : 			      '告士打道东行近税务大楼 经 红磡海底隧道',
+	'Gloucester Road eastbound near the Revenue Tower via Eastern Harbour Crossing' : 		      '告士打道东行近税务大楼 经 东区海底隧道',
+	'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Cross Harbour Tunnel' : 	      '坚拿道天桥北行近香港仔隧道出口 经 红磡海底隧道',
+	'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Eastern Harbour Crossing' : 	      '坚拿道天桥北行近香港仔隧道出口 经 东区海底隧道',
+	'Canal Road Flyover northbound near exit of Aberdeen Tunnel via Western Harbour Crossing' : 	      '坚拿道天桥北行近香港仔隧道出口 经 西区海底隧道',
+	'Island Eastern Corridor westbound near City Garden via Cross Harbour Tunnel' : 		      '东区走廊西行近城市花园 经 红磡海底隧道',
+	'Island Eastern Corridor westbound near City Garden via Western Harbour Crossing' : 		      '东区走廊西行近城市花园 经 西区海底隧道',
+	'Ferry Street southbound near Charming Garden via Cross Harbour Tunnel' : 			      '渡船街南行近富荣花园 经 红磡海底隧道',
+	'Ferry Street southbound near Charming Garden via Western Harbour Crossing' : 			      '渡船街南行近富荣花园 经 西区海底隧道',
+	'Gascoigne Road eastbound near the Hong Kong Polytechnic University via Cross Harbour Tunnel' :       '加士居道东行近香港理工大学 经 红磡海底隧道',
+	'Gascoigne Road eastbound near the Hong Kong Polytechnic University via Eastern Harbour Crossing' :   '加士居道东行近香港理工大学 经 东区海底隧道',
+	'Waterloo Road southbound near Kowloon Hospital via Cross Harbour Tunnel' : 			      '窝打老道南行近九龙医院 经 红磡海底隧道',
+	'Waterloo Road southbound near Kowloon Hospital via Eastern Harbour Crossing' : 		      '窝打老道南行近九龙医院 经 东区海底隧道',
+	'Waterloo Road southbound near Kowloon Hospital via Western Harbour Crossing' : 		      '窝打老道南行近九龙医院 经 西区海底隧道',
+	'Princess Margaret Road southbound near Oi Man Estate via Cross Harbour Tunnel' : 		      '公主道南行近爱民邨 经 红磡海底隧道',
+	'Princess Margaret Road southbound near Oi Man Estate via Western Harbour Crossing' : 		      '公主道南行近爱民邨 经 西区海底隧道',
+	'Kai Fuk Road northbound near the petrol stations via Cross Harbour Tunnel' : 			      '启福道北行近油站 经 红磡海底隧道',
+	'Kai Fuk Road northbound near the petrol stations via Eastern Harbour Crossing' : 		      '启福道北行近油站 经 东区海底隧道',
+	'Chatham Road North southbound near Fat Kwong Street Playground via Cross Harbour Tunnel' : 	      '漆咸道北南行近佛光街游乐场 经 红磡海底隧道',
+	'Chatham Road North southbound near Fat Kwong Street Playground via Western Harbour Crossing' :       '漆咸道北南行近佛光街游乐场 经 西区海底隧道',
+	'Tai Po Road – Sha Tin near the Racecourse via Lion Rock Tunnel' : 				      '大埔公路近沙田马场 经 狮子山隧道',
+	'Tai Po Road – Sha Tin near the Racecourse via hing Mun Tunnel' : 				      '大埔公路近沙田马场 经 城门隧道',
+	'Tai Po Road – Sha Tin near the Racecourse via Tsing Sha Control Area' : 			      '大埔公路近沙田马场 经 青沙管制区',
+	'Tate\'s Cairn Highway near Shek Mun via Lion Rock Tunnel' : 					      '大老山公路近石门 经 狮子山隧道',
+	'Tate\'s Cairn Highway near Shek Mun via Tate\'s Cairn Tunnel' : 				      '大老山公路近石门 经 大老山隧道',
+	'Tate\'s Cairn Highway near Shek Mun via Tsing Sha Control Area' : 				      '大老山公路近石门 经 青沙管制区',
+	'Tolo Highway near Science Park via Lion Rock Tunnel' : 					      '吐露港公路近科学园 经 狮子山隧道',
+	'Tolo Highway near Science Park via Tate\'s Cairn Tunnel' : 					      '吐露港公路近科学园 经 大老山隧道',
+	'Tolo Highway near Science Park via Tsing Sha Control Area' : 					      '吐露港公路近科学园 经 青沙管制区',
+	'San Tin Highway near Pok Wai Road via Tai Lam Tunnel to Ting Kau' : 				      '新田公路近壆围路 经 大榄隧道往汀九',
+	'San Tin Highway near Pok Wai Road via Tuen Mun Road to Ting Kau' : 				      '新田公路近壆围路 经 屯门公路往汀九',
+	'Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Castle Peak to Tsuen Wan' : 		      '屯门公路近屯门乡事会路 经 青山公路往荃湾西',
+	'Tuen Mun Road near Tuen Mun Heung Sze Wui Road via Tuen Mun to Tsuen Wan' : 			      '屯门公路近屯门乡事会路 经 屯门公路往荃湾西',
+	
+
+//end metas        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     // GUI
     // control bar:
     'untitled':

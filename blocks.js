@@ -1017,7 +1017,82 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
                 true // read-only
             );
             part.isStatic = true;
-            break;	
+            break;
+        case '%digitalpin':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '1' : ['1'],
+					'2' : ['2'],
+					'3' : ['3'],
+					'4' : ['4'],
+					'5' : ['5'],
+					'6' : ['6'],
+					'7' : ['7'],
+					'8' : ['8'],
+					'9' : ['9'],
+					'10' : ['10'],
+					'11' : ['11'],
+					'12' : ['12']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
+        case '%digitaloutput':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '0' : ['0'],
+					'1' : ['1']
+					
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
+            
+        case '%servopin':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '1' : ['1'],
+					'2' : ['2'],
+                    '3' : ['3'],
+					'4' : ['4']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
+        case '%motorpin':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    '1' : ['1'],
+					'2' : ['2']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
+        case '%direction':
+            part = new InputSlotMorph(
+                null, // text
+                false, // numeric?
+                {
+                    'cw' : ['cw'],
+					'acw' : ['acw']
+                },
+                true // read-only
+            );
+            part.isStatic = true;
+            break;
 		case '%hkroad':
             part = new InputSlotMorph(
                 null, // text
