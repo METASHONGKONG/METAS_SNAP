@@ -1,10 +1,12 @@
-#Metas SNAP Version 1.0
+# Metas SNAP Version 1.1
 
 METAS Snap! Build Your Own Blocks
 
-http://snap.metaslab.com/snap/snap.html
+http://snap.funmetas.com.hk/snap/snap.html
 
-a visual, blocks based programming language
+## Overview
+
+A visual, blocks based programming language
 inspired by Scratch
 
 Snap! is free software: you can redistribute it and/or modify
@@ -24,3 +26,14 @@ written by Jens Mönig and Brian Harvey
 jens@moenig.org, bh@cs.berkeley.edu
 
 Copyright (C) 2016 by Jens Mönig and Brian Harvey
+
+## History
+
+Version 1.1 [6/Mar/2017]
+* Re-structured the robot tab
+* Made the blocks more consistent in the robot tab
+* Minor Bug fix
+* Code consolidation
+
+Version 1.0 [20/Sep/2016]
+* The initial source code
