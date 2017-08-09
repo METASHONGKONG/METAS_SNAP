@@ -1313,6 +1313,19 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
         },
+		// new blocks added Ken, 20170809
+		reportSendThingSpeak: {
+            type: 'command',
+            category: 'ioT',
+            spec: 'ThingSpeak API Key %s field1 %s',
+            defaults: ['', '']
+        },
+		reportSendIFTTT: {
+            type: 'command',
+            category: 'ioT',
+            spec: 'IFTTT API Key %s Event Name %s',
+            defaults: ['', '']
+        },
         // new blocks added Ken, 20170306
         reportSetServo: {
             type: 'command',
@@ -2205,6 +2218,12 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 		blocks.push(block('reportURLweatherMetas'));
 		blocks.push('-');
 	    blocks.push(block('reportURLtransportMetas'));
+		blocks.push('-');
+	    blocks.push(block('reportSendThingSpeak'));
+		blocks.push('-');
+	    blocks.push(block('reportSendIFTTT'));
+		
+		
 		
 /*		
         blocks.push('-');

@@ -2353,6 +2353,39 @@ Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
 	
 };
 
+// new block added by Ken 20170809 
+Process.prototype.reportSendThingSpeak = function (apikey,field1) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        this.httpRequest.open("GET", 'https://api.thingspeak.com/update?api_key='+apikey+'&field1='+field1, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// new block added by Ken 20170809 
+Process.prototype.reportSendIFTTT = function (apikey,eventName) {
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+        //this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'apikey+'?&value1='+value1, true);
+		this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey, true);
+        this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // new block added by Ken 20170306 
 Process.prototype.reportSetServo = function (url,pin,output) {
     var response;
