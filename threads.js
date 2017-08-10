@@ -2310,6 +2310,23 @@ Process.prototype.reportURLhttpCommandMetas = function (url) {
     this.pushContext();
 };
 
+// Added by Ken 20170810       // metas  http reporter URL
+Process.prototype.reportURLhttpReporterMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", 'http://' + url , true);
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // Process URI retrieval (interpolated)        // metas  weather command URL
 Process.prototype.reportURLweatherMetas = function (hkweatherLocation, metasUnit) {
     var response;
@@ -2351,6 +2368,67 @@ Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
     this.pushContext('doYield');
     this.pushContext();
 	
+};
+
+// new block added by Ken 20170809 
+Process.prototype.reportSendThingSpeak = function (apikey, args) {
+	var parms = args.asArray();
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+		
+		if(parms.indexOf('') == -1 && apikey != "" && parms.length <= 8){
+			var url = 'https://api.thingspeak.com/update?api_key='+apikey;
+			for (i=0; i<parms.length; i++)
+				url += '&field' + (i+1) + '=' + parms[0];
+			
+			this.httpRequest.open("GET", url, true);
+		}
+		
+		this.httpRequest.send(null);
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
+// new block added by Ken 20170809 
+Process.prototype.reportSendIFTTT = function (apikey,eventName, args) {
+	var parms = args.asArray();
+    var response;
+    if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest();
+		
+        //this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'apikey+'?&value1='+value1, true);
+		//this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey, true);
+		
+		
+		if (eventName!= "" &&  apikey != "" && parms.length <= 3 && parms.indexOf('') == -1){
+			
+			var url = 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey+'?';
+			for (i=0; i<parms.length; i++)
+				url += '&value' + (i+1) + '=' + parms[0];
+			
+			
+			
+			this.httpRequest.open("GET", url, true);	
+			this.httpRequest.setRequestHeader( "Access-Control-Allow-Origin", "*");
+			//this.httpRequest.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+			//this.httpRequest.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+		}
+		
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+        response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
 };
 
 // new block added by Ken 20170306 
