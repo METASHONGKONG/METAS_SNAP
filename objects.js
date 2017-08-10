@@ -1317,7 +1317,7 @@ SpriteMorph.prototype.initBlocks = function () {
 		reportSendThingSpeak: {
             type: 'command',
             category: 'ioT',
-            spec: 'ThingSpeak API Key %s field1 %s',
+            spec: 'ThingSpeak API Key %s field %thingspeakinput',
             defaults: ['', '']
         },
 		reportSendIFTTT: {

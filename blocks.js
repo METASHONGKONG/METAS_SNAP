@@ -780,6 +780,11 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
             part.isStatic = false;
             part.canBeEmpty = false;
             break;
+		case '%thingspeakinput':
+            part = new MultiArgMorph('%s', null, 1);
+            part.isStatic = false;
+            part.canBeEmpty = false;
+            break;
         case '%scriptVars':
             part = new MultiArgMorph('%t', null, 1, spec);
             part.canBeEmpty = false;

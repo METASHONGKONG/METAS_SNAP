@@ -2354,12 +2354,21 @@ Process.prototype.reportURLtransportMetas = function (hkroad, metasUnit) {
 };
 
 // new block added by Ken 20170809 
-Process.prototype.reportSendThingSpeak = function (apikey,field1) {
+Process.prototype.reportSendThingSpeak = function (apikey, args) {
+	var parms = args.asArray();
     var response;
     if (!this.httpRequest) {
         this.httpRequest = new XMLHttpRequest();
-        this.httpRequest.open("GET", 'https://api.thingspeak.com/update?api_key='+apikey+'&field1='+field1, true);
-        this.httpRequest.send(null);
+		
+		if(parms.indexOf('') == -1 && apikey != "" && parms.length <= 8){
+			var url = 'https://api.thingspeak.com/update?api_key='+apikey;
+			for (i=0; i<parms.length; i++)
+				url += '&field' + (i+1) + '=' + parms[0];
+			
+			this.httpRequest.open("GET", url, true);
+		}
+		
+		this.httpRequest.send(null);
     } else if (this.httpRequest.readyState === 4) {
         response = this.httpRequest.responseText;
         this.httpRequest = null;
