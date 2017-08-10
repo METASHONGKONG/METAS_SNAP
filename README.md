@@ -1,4 +1,4 @@
-# Metas SNAP Version 1.1
+# Metas Services SNAP Version 1.2
 
 METAS Snap! Build Your Own Blocks
 
@@ -28,6 +28,11 @@ jens@moenig.org, bh@cs.berkeley.edu
 Copyright (C) 2016 by Jens Mönig and Brian Harvey
 
 ## History
+
+Version 1.2 [10/Aug/2017]
+* Added ThingSpeak and IFTTT blocks in IoT tab
+* Added http reporter in IoT tab
+* Changed the icon, title and the first loaded costumes
 
 Version 1.1 [6/Mar/2017]
 * Re-structured the robot tab
