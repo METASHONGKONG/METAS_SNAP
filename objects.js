@@ -1323,7 +1323,7 @@ SpriteMorph.prototype.initBlocks = function () {
 		reportSendIFTTT: {
             type: 'command',
             category: 'ioT',
-            spec: 'IFTTT API Key %s Event Name %s',
+            spec: 'IFTTT API Key %s Event Name %s %iftttinput',
             defaults: ['', '']
         },
         // new blocks added Ken, 20170306

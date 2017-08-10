@@ -2379,13 +2379,32 @@ Process.prototype.reportSendThingSpeak = function (apikey, args) {
 };
 
 // new block added by Ken 20170809 
-Process.prototype.reportSendIFTTT = function (apikey,eventName) {
+Process.prototype.reportSendIFTTT = function (apikey,eventName, args) {
+	var parms = args.asArray();
     var response;
     if (!this.httpRequest) {
         this.httpRequest = new XMLHttpRequest();
+		
         //this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'apikey+'?&value1='+value1, true);
-		this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey, true);
+		//this.httpRequest.open("GET", 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey, true);
+		
+		
+		if (eventName!= "" &&  apikey != "" && parms.length <= 3 && parms.indexOf('') == -1){
+			
+			var url = 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey+'?';
+			for (i=0; i<parms.length; i++)
+				url += '&value' + (i+1) + '=' + parms[0];
+			
+			
+			
+			this.httpRequest.open("GET", url, true);	
+			this.httpRequest.setRequestHeader( "Access-Control-Allow-Origin", "*");
+			//this.httpRequest.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+			//this.httpRequest.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+		}
+		
         this.httpRequest.send(null);
+		
     } else if (this.httpRequest.readyState === 4) {
         response = this.httpRequest.responseText;
         this.httpRequest = null;
