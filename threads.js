@@ -2310,6 +2310,23 @@ Process.prototype.reportURLhttpCommandMetas = function (url) {
     this.pushContext();
 };
 
+// Added by Ken 20170810       // metas  http reporter URL
+Process.prototype.reportURLhttpReporterMetas = function (url) {
+    var response;
+	if (!this.httpRequest) {
+        this.httpRequest = new XMLHttpRequest(); 
+       this.httpRequest.open("GET", 'http://' + url , true);
+        this.httpRequest.send(null);
+		
+    } else if (this.httpRequest.readyState === 4) {
+		response = this.httpRequest.responseText;
+        this.httpRequest = null;
+        return response;
+    }
+    this.pushContext('doYield');
+    this.pushContext();
+};
+
 // Process URI retrieval (interpolated)        // metas  weather command URL
 Process.prototype.reportURLweatherMetas = function (hkweatherLocation, metasUnit) {
     var response;

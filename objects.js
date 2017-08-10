@@ -1301,6 +1301,12 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'http:// %s',
             defaults: ['IP']
         },
+		reportURLhttpReporterMetas: {
+            type: 'reporter',
+            category: 'ioT',
+            spec: 'http:// %s',
+            defaults: ['IP']
+        },
 		reportURLweatherMetas: {
             type: 'reporter',
             category: 'ioT',
@@ -2214,14 +2220,14 @@ SpriteMorph.prototype.blockTemplates = function (category) {
    } else if (cat === 'ioT') {  // metas
    
         blocks.push(block('reportURLhttpCommandMetas'));
-        blocks.push('-');
-		blocks.push(block('reportURLweatherMetas'));
+        blocks.push(block('reportURLhttpReporterMetas'));
 		blocks.push('-');
+		blocks.push(block('reportURLweatherMetas'));
 	    blocks.push(block('reportURLtransportMetas'));
 		blocks.push('-');
 	    blocks.push(block('reportSendThingSpeak'));
-		blocks.push('-');
 	    blocks.push(block('reportSendIFTTT'));
+		blocks.push('-');
 		
 		
 		
