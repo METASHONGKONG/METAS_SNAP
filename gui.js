@@ -477,12 +477,12 @@ IDE_Morph.prototype.buildPanes = function () {
 	         // window.open('http://snap.metaslab.com/workshop/metasextra/metassetting.jpg', 'metassetting');
          // window.open("http://snap.metaslab.com/workshop/metasextra/metassetting.jpg", "metassetting", "width=600,height=800,resizable");
 	
-	 //metas  //ringo add a dinosaur load as default
+	 //metas  //ringo add a ms-tree load as default
 	 
-	// alert("I am an alert box!dinosaur load as default c" );
+	// alert("I am an alert box!ms-tree load as default c" );
 
 	var myself = this;
-	var url = this.resourceURL("Costumes", "dinosaur.png"),
+	var url = this.resourceURL("Costumes", "ms-tree.png"),
 	img = new Image();
 	
 	
@@ -493,7 +493,7 @@ IDE_Morph.prototype.buildPanes = function () {
 	
 		var costume = new Costume(
 		canvas,
-		myself.currentSprite.newCostumeName('Dino')
+		myself.currentSprite.newCostumeName('Tree')
 		);
 		
 		if (costume.isTainted()) {
@@ -3152,9 +3152,9 @@ IDE_Morph.prototype.newProject = function () {
 			
 		//if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
 			
-			//alert("I am an alert box!dinosaur load as default B" );
+			//alert("I am an alert box!ms-tree load as default B" );
 			var myself = this;
-			var url = this.resourceURL("Costumes", "dinosaur.png"),
+			var url = this.resourceURL("Costumes", "ms-tree.png"),
 			img = new Image();
 			
 			
@@ -3165,7 +3165,7 @@ IDE_Morph.prototype.newProject = function () {
 			
 				var costume = new Costume(
 				canvas,
-				myself.currentSprite.newCostumeName('Dino')
+				myself.currentSprite.newCostumeName('Tree')
 				);
 				
 				if (costume.isTainted()) {
@@ -3763,9 +3763,9 @@ IDE_Morph.prototype.rawOpenProjectStringV2 = function (str) {
 			
 		//if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
 			
-			//alert("I am an alert box!dinosaur load as default B" );
+			//alert("I am an alert box!ms-tree load as default B" );
 			var myself = this;
-			var url = this.resourceURL("Costumes", "dinosaur.png"),
+			var url = this.resourceURL("Costumes", "ms-tree.png"),
 			img = new Image();
 			
 			
@@ -3776,7 +3776,7 @@ IDE_Morph.prototype.rawOpenProjectStringV2 = function (str) {
 			
 				var costume = new Costume(
 				canvas,
-				myself.currentSprite.newCostumeName('Dino')
+				myself.currentSprite.newCostumeName('Tree')
 				);
 				
 				if (costume.isTainted()) {
@@ -5115,7 +5115,7 @@ IDE_Morph.prototype.metasTest = function () {  //metas
    //alert("I am an alert box! getSetting "+ this.getSetting('language'));
    
    
-//alert("I am an alert box!dinosaur load as default" +StageMorph.prototype.dimensions  );
+//alert("I am an alert box!ms-tree load as default" +StageMorph.prototype.dimensions  );
 
 
 	

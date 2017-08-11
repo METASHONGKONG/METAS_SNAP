@@ -1301,6 +1301,12 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'http:// %s',
             defaults: ['IP']
         },
+		reportURLhttpReporterMetas: {
+            type: 'reporter',
+            category: 'ioT',
+            spec: 'http:// %s',
+            defaults: ['IP']
+        },
 		reportURLweatherMetas: {
             type: 'reporter',
             category: 'ioT',
@@ -1312,6 +1318,19 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'ioT',
             spec: 'HK Transport %hkroad option %metasUnit',
             defaults: ['', 'with unit']
+        },
+		// new blocks added Ken, 20170809
+		reportSendThingSpeak: {
+            type: 'command',
+            category: 'ioT',
+            spec: 'ThingSpeak API Key %s field %thingspeakinput',
+            defaults: ['', '']
+        },
+		reportSendIFTTT: {
+            type: 'command',
+            category: 'ioT',
+            spec: 'IFTTT API Key %s Event Name %s %iftttinput',
+            defaults: ['', '']
         },
         // new blocks added Ken, 20170306
         reportSetServo: {
@@ -2201,10 +2220,16 @@ SpriteMorph.prototype.blockTemplates = function (category) {
    } else if (cat === 'ioT') {  // metas
    
         blocks.push(block('reportURLhttpCommandMetas'));
-        blocks.push('-');
-		blocks.push(block('reportURLweatherMetas'));
+        blocks.push(block('reportURLhttpReporterMetas'));
 		blocks.push('-');
+		blocks.push(block('reportURLweatherMetas'));
 	    blocks.push(block('reportURLtransportMetas'));
+		blocks.push('-');
+	    blocks.push(block('reportSendThingSpeak'));
+	    blocks.push(block('reportSendIFTTT'));
+		blocks.push('-');
+		
+		
 		
 /*		
         blocks.push('-');
