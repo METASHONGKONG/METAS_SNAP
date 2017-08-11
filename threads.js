@@ -2380,7 +2380,7 @@ Process.prototype.reportSendThingSpeak = function (apikey, args) {
 		if(parms.indexOf('') == -1 && apikey != "" && parms.length <= 8){
 			var url = 'https://api.thingspeak.com/update?api_key='+apikey;
 			for (i=0; i<parms.length; i++)
-				url += '&field' + (i+1) + '=' + parms[0];
+				url += '&field' + (i+1) + '=' + parms[i];
 			
 			this.httpRequest.open("GET", url, true);
 		}
@@ -2410,7 +2410,7 @@ Process.prototype.reportSendIFTTT = function (apikey,eventName, args) {
 			
 			var url = 'https://maker.ifttt.com/trigger/'+eventName+'/with/key/'+apikey+'?';
 			for (i=0; i<parms.length; i++)
-				url += '&value' + (i+1) + '=' + parms[0];
+				url += '&value' + (i+1) + '=' + parms[i];
 			
 			
 			
